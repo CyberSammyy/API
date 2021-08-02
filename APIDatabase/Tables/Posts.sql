@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[Posts]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)
