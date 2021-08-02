@@ -144,11 +144,11 @@ namespace DataAccess
         {
             using (var context = new UsersDBContext(_options))
             {
-                var usersRoles = await context.UserRoles.Where(x => x.Id == userId).ToListAsync();
-                IEnumerable<string> rolesStrings = new List<string>();
+                var usersRoles = await context.UserRoles.Where(x => x.UserId == userId).ToListAsync();
+                List<string> rolesStrings = new List<string>();
                 foreach(var userRole in usersRoles)
                 {
-                    rolesStrings.ToList().Add((await context.Roles
+                    rolesStrings.Add((await context.Roles
                         .FirstOrDefaultAsync(x => x.Id == userRole.RoleId)).RoleName);
                 }
 
