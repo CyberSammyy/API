@@ -144,9 +144,9 @@ namespace DataAccess
         {
             using (var context = new UsersDBContext(_options))
             {
-                var userRoles = await context.UsersRoles.Where(x => x.Id == userId).ToListAsync();
+                var usersRoles = await context.UserRoles.Where(x => x.Id == userId).ToListAsync();
                 IEnumerable<string> rolesStrings = new List<string>();
-                foreach(var userRole in userRoles)
+                foreach(var userRole in usersRoles)
                 {
                     rolesStrings.ToList().Add((await context.Roles
                         .FirstOrDefaultAsync(x => x.Id == userRole.RoleId)).RoleName);

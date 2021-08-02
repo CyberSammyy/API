@@ -7,7 +7,7 @@ namespace DataAccess.Classes
     {
         public DbSet<UserDTO> Users { get; set; }
         public DbSet<RoleDTO> Roles { get; set; }
-        public DbSet<UserRolesDTO> UsersRoles { get; set; }
+        public DbSet<UserRolesDTO> UserRoles { get; set; }
         public DbSet<PostDTO> Posts { get; set; }
         public UsersDBContext(DbContextOptions<UsersDBContext> options) : base(options)
         {
