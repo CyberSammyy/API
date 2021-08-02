@@ -4,9 +4,8 @@ using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
 using DataAccess.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
@@ -28,18 +27,18 @@ namespace BusinessLogic.Services
             throw new NotImplementedException();
         }
 
-        public ValidationResult Login(AuthenticationModel authenticationModel)
+        public async Task<ValidationResult> Login(AuthenticationModel authenticationModel)
         {
             var hashedPassword = authenticationModel.Password.GetMD5Hash();
             authenticationModel.Password = hashedPassword;
 
-            var foundUser = _userService.GetUserByLoginAndPassword(authenticationModel);
+            var foundUser = await _userService.GetUserByLoginAndPassword(authenticationModel);
             UserWithRoles userWithRoles = null;
             var isUserNotNull = foundUser != null;
 
             if(isUserNotNull)
             {
-                var roles = _userService.GetUserRolesById(foundUser.Id);
+                var roles = await _userService.GetUserRolesById(foundUser.Id);
                 userWithRoles = new UserWithRoles
                 {
                     Id = foundUser.Id,

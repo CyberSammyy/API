@@ -7,7 +7,9 @@ namespace BusinessLogic.Classes
         public static bool IsUserValid(User user)
         {
             return true; //REMOVE IT ASAP
+#pragma warning disable CS0162 // Unreachable code detected
             if (user == null)
+#pragma warning restore CS0162 // Unreachable code detected
             {
                 return false;
             }

@@ -13,7 +13,7 @@ namespace DataAccess.Interfaces
         public Task<bool> PutUser(UserDTO user);
         public Task<UserDTO> GetUserById(Guid id);
         public IEnumerable<UserDTO> GetUsers();
-        IEnumerable<string> GetUserRolesById(Guid userId);
+        Task<IEnumerable<string>> GetUserRolesById(Guid userId);
         Task<UserDTO> GetUserByAuthData(AuthenticationModel authenticationModel);
         bool RegisterUser(UserDTO userToRegister);
 

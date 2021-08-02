@@ -17,11 +17,11 @@ namespace API.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _service;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
         private readonly ISessionService _sessionService;
 
         public UserController(ILogger<UserController> logger, IUserService service,
-            AuthService authService, ISessionService sessionService)
+            IAuthService authService, ISessionService sessionService)
         {
             _logger = logger;
             _service = service;
@@ -31,9 +31,9 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public string Login(AuthenticationModel userAuthData)
+        public async Task<string> Login(AuthenticationModel userAuthData)
         {
-            var validationResult = _authService.Login(userAuthData);
+            var validationResult = await _authService.Login(userAuthData);
 
             if(!validationResult.IsSuccessful)
             {

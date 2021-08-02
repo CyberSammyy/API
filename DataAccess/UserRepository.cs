@@ -140,9 +140,20 @@ namespace DataAccess
             }
         }
 
-        IEnumerable<string> IUserRepository.GetUserRolesById(Guid userId)
+        async Task<IEnumerable<string>> IUserRepository.GetUserRolesById(Guid userId)
         {
-            throw new NotImplementedException();
+            using (var context = new UsersDBContext(_options))
+            {
+                var userRoles = await context.UsersRoles.Where(x => x.Id == userId).ToListAsync();
+                IEnumerable<string> rolesStrings = new List<string>();
+                foreach(var userRole in userRoles)
+                {
+                    rolesStrings.ToList().Add((await context.Roles
+                        .FirstOrDefaultAsync(x => x.Id == userRole.RoleId)).RoleName);
+                }
+
+                return rolesStrings;
+            }
         }
 
         public async Task<UserDTO> GetUserByAuthData(AuthenticationModel authenticationModel)

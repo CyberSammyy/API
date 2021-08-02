@@ -1,13 +1,11 @@
 ﻿using BusinessLogic.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace BusinessLogic.Interfaces
 {
     public interface IAuthService
     {
-        ValidationResult Login(AuthenticationModel authenticationModel);
+        Task<ValidationResult> Login(AuthenticationModel authenticationModel);
         bool RegisterUser(User userToRegister);
         bool ConfirmEmail(string message);
     }

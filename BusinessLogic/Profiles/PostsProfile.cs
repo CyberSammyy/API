@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.Models;
 using DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.Classes
 {

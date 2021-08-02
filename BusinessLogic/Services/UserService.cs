@@ -28,11 +28,15 @@ namespace BusinessLogic
                     var dto = _mapper.Map<UserDTO>(user);
                     await _userRepository.AddUser(dto);
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (NullReferenceException ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     return Guid.Empty;
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     return Guid.Empty;
                 }
@@ -54,16 +58,14 @@ namespace BusinessLogic
         public IEnumerable<User> GetUsers()
         {
             var users = _userRepository.GetUsers();
-            List<User> mappedCollectionUsers = new List<User>();
+            IEnumerable<User> mappedCollectionUsers = new List<User>();
             if (users == null)
             {
                 return new List<User>();
             }
+            else
             {
-                foreach (var user in users)
-                {
-                    mappedCollectionUsers.Add(_mapper.Map<User>(user));
-                }
+                mappedCollectionUsers = _mapper.Map<IEnumerable<User>>(users);
                 return mappedCollectionUsers;
             }
         }
@@ -93,14 +95,14 @@ namespace BusinessLogic
             }
         }
 
-        public IEnumerable<string> GetUserRolesById(Guid id)
+        public async Task<IEnumerable<string>> GetUserRolesById(Guid id)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetUserRolesById(id);
         }
 
-        public User GetUserByLoginAndPassword(AuthenticationModel userAuthData)
+        public async Task<User> GetUserByLoginAndPassword(AuthenticationModel userAuthData)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<User>(await _userRepository.GetUserByAuthData(userAuthData));
         }
     }
 }
