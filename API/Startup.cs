@@ -49,10 +49,8 @@ namespace API
             {
                 Assembly.GetAssembly(typeof(UserProfile))
             };
-            services.AddAutoMapper(assemblies);
 
-            services.AddAuthentication(appSettings);
-            services.AddAuthorization();
+            services.AddAutoMapper(assemblies);
 
             services.AddSwaggerGen(c =>
             {
@@ -82,6 +80,9 @@ namespace API
                     }
                 });
             });
+
+            services.AddAuthentication(appSettings);
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +99,7 @@ namespace API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
