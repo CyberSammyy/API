@@ -46,6 +46,24 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(User userToRegister)
+        {
+            var isRegistered = await _authService.RegisterUser(userToRegister);
+
+            if(isRegistered)
+            {
+                return Ok(await Login(new AuthenticationModel
+                {
+                    Login = userToRegister.Nickname,
+                    Password = userToRegister.Password
+                }));
+            }
+
+            return BadRequest("Invalid registration data!");
+        }
+
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
@@ -61,9 +79,10 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<Guid> PostUser(User user)
+        public /*async*/ Task<Guid> PostUser(User user)
         {
-            return await _service.AddUser(user);
+            throw new NotImplementedException();
+            //return await _service.AddUser(user);
         }
 
 
@@ -74,7 +93,7 @@ namespace API.Controllers
             return await _service.DeleteUserById(id);
         }
 
-        [Authorize(Roles = "Moderator, Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<bool> PutUser(User user)
         {

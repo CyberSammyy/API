@@ -49,15 +49,31 @@ namespace BusinessLogic.Services
             return new ValidationResult(isUserNotNull, userWithRoles);
         }
 
-        public bool RegisterUser(User userToRegister)
+        public async Task<bool> RegisterUser(User userToRegister)
         {
-            throw new NotImplementedException();
+            if(!IsPasswordValid(userToRegister.Password) || 
+               !IsMailFormatValid(userToRegister.Email))
+            {
+                //return false;
+                //return true;
+            }
+
+            return await _userService.RegisterUser(userToRegister);
+
         }
         private bool IsPasswordValid(string password)
         {
             var regEx = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[#?!@$%^&*-]))", RegexOptions.Compiled);
 
             return regEx.IsMatch(password);
+        }
+
+        private bool IsMailFormatValid(string email)
+        {
+            var regEx = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$", 
+                RegexOptions.Compiled);
+
+            return regEx.IsMatch(email);
         }
     }
 }

@@ -104,5 +104,20 @@ namespace BusinessLogic
         {
             return _mapper.Map<User>(await _userRepository.GetUserByAuthData(userAuthData));
         }
+
+        public async Task<bool> RegisterUser(User userToRegister)
+        {
+            userToRegister.Id = Guid.NewGuid();
+            try
+            {
+                return await _userRepository.RegisterUser(_mapper.Map<UserDTO>(userToRegister));
+            }
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch(Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+            {
+                return false;
+            }
+        }
     }
 }

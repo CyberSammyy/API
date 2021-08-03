@@ -166,9 +166,16 @@ namespace DataAccess
             }
         }
 
-        public bool RegisterUser(UserDTO userToRegister)
+        public async Task<bool> RegisterUser(UserDTO userToRegister)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            using (var context = new UsersDBContext(_options))
+            {
+                result = await context.Users.AddAsync(userToRegister) != null;
+                await context.SaveChangesAsync();
+            }
+
+            return result;
         }
     }
 }
