@@ -1,36 +1,48 @@
-﻿using BusinessLogic.Interfaces;
+﻿using AutoMapper;
+using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
+using DataAccess.Interfaces;
+using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace BusinessLogic.Services
 {
     public class PostsService : IPostsService
     {
-        public Task<Guid> AddPost(Post user)
+        private readonly IPostsRepository _postsRepository;
+        private readonly IMapper _mapper;
+
+        public PostsService(IPostsRepository postsRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _postsRepository = postsRepository;
+            _mapper = mapper;
         }
 
-        public Task<bool> DeletePostById(Guid id)
+        public async Task<Guid> AddPost(Post post)
         {
-            throw new NotImplementedException();
+            return await _postsRepository.AddPost(_mapper.Map<PostDTO>(post));
         }
 
-        public Task<Post> GetPostById(Guid id)
+        public async Task<bool> DeletePostById(Guid id)
         {
-            throw new NotImplementedException();
+            return await _postsRepository.DeletePostById(id);
+        }
+
+        public async Task<Post> GetPostById(Guid id)
+        {
+            return _mapper.Map<Post>(await _postsRepository.GetPostById(id));
         }
 
         public IEnumerable<Post> GetPosts()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<Post>>(_postsRepository.GetPosts());
         }
 
-        public Task<bool> PutPost(Post user)
+        public async Task<bool> PutPost(Post post)
         {
-            throw new NotImplementedException();
+            return await _postsRepository.PutPost(_mapper.Map<PostDTO>(post));
         }
     }
 }

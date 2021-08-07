@@ -8,7 +8,9 @@ namespace DataAccess.Models
     {
         public Guid Id { get; set; }
         public string RoleName { get; set; }
+
         public RoleDTO() { }
+
         public RoleDTO(Guid id, string role)
         {
             Id = id;

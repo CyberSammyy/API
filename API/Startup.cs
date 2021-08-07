@@ -41,6 +41,8 @@ namespace API
 
             var appSettings = appSettingsSection.Get<AppSettings>();
 
+            services.AddHttpClient();
+
             services.RegisterServices();
 
             services.AddControllers();

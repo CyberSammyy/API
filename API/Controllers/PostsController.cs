@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    [Authorize]
+    [ApiController]
+    [Route("[controller]")]
     public class PostsController
     {
         private readonly ILogger<PostsController> _logger;
@@ -27,7 +30,7 @@ namespace API.Controllers
             return _service.GetPosts();
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Writer")]
         [HttpGet("{id}")]
         public async Task<Post> GetPostById(Guid id)
         {

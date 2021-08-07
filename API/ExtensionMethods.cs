@@ -20,6 +20,8 @@ namespace API
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<IHashService, HashService>();
+            services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IPostsRepository, PostsRepository>();
             services.AddScoped<IPostsService, PostsService>();
         }
