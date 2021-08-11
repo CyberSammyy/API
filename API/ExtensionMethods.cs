@@ -25,6 +25,7 @@ namespace API
             services.AddScoped<IPostsRepository, PostsRepository>();
             services.AddScoped<IPostsService, PostsService>();
         }
+
         public static void AddAuthentication(this IServiceCollection services, AppSettings appSettings)
         {
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);

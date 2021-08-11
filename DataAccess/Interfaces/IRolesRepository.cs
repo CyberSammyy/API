@@ -11,5 +11,6 @@ namespace DataAccess.Interfaces
         Task<IList<RoleDTO>> GetRolesById(Guid id);
         Task<bool> SetRole(Guid userId, string roleName);
         Task<bool> RemoveRole(Guid userId, string roleName);
+        Task<IEnumerable<string>> GetUserRolesById(Guid userId);
     }
 }

@@ -3,8 +3,6 @@ using BusinessLogic.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.Services
 {
@@ -16,6 +14,7 @@ namespace BusinessLogic.Services
         {
             _hashSettings = hashSettings.Value;
         }
+
         public string HashString(string stringToHash)
         {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(

@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Emails]
+(
+	[UserId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[Email] NVARCHAR(100) NOT NULL,
+	[IsConfirmed] BIT NOT NULL,
+	[ConfirmationMessage] NVARCHAR(200) NOT NULL
+)

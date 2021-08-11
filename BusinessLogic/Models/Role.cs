@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.Models
 {
@@ -8,7 +6,9 @@ namespace BusinessLogic.Models
     {
         public Guid Id { get; set; }
         public string RoleName { get; set; }
+
         public Role() { }
+
         public Role(string role)
         {
             Id = Guid.NewGuid();

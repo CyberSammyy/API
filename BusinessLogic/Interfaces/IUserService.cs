@@ -12,8 +12,9 @@ namespace BusinessLogic.Interfaces
         public Task<User> GetUserById(Guid id);
         public IEnumerable<User> GetUsers();
         public Task<bool> PutUser(User user);
-        public Task<IEnumerable<string>> GetUserRolesById(Guid id);
         public Task<User> GetUserByLoginAndPassword(AuthenticationModel userAuthData);
         public Task<bool> RegisterUser(User userToRegister);
+        void AddUserMail(Guid userId, string mail, string path);
+        Task<ConfirmationResult> ConfirmEmail(string message);
     }
 }

@@ -7,6 +7,6 @@ namespace BusinessLogic.Interfaces
     {
         Task<ValidationResult> Login(AuthenticationModel authenticationModel);
         Task<bool> RegisterUser(User userToRegister);
-        bool ConfirmEmail(string message);
+        Task<ConfirmationResult> ConfirmEmail(string message);
     }
 }

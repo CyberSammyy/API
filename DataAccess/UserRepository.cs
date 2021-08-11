@@ -13,45 +13,12 @@ namespace DataAccess
     public class UserRepository : IUserRepository
     {
         private readonly DbContextOptions<UsersDBContext> _options;
-        private IEnumerable<UserWithRoles> _usersWithRoles;
+        
         public UserRepository(DbContextOptions<UsersDBContext> options)
         {
             _options = options;
         }
 
-        public async Task<IEnumerable<string>> GetUserRolesById(Guid id)
-        {
-            if(_usersWithRoles == null)
-            {
-                _usersWithRoles = await GetAllUserRoles();
-            }
-
-            return _usersWithRoles
-                .FirstOrDefault(x => x.Id == id)?.Roles;
-        }
-
-        private async Task<IEnumerable<UserWithRoles>> GetAllUserRoles()
-        {
-            using (var context = new UsersDBContext(_options))
-            {
-                var items = await (from user in context.Set<UserDTO>()
-                                   join userRole in context.Set<UserRolesDTO>()
-                                   on user.Id equals userRole.UserId
-                                   join role in context.Set<RoleDTO>()
-                                   on userRole.RoleId equals role.Id
-                                   select new UserWithRole
-                                   {
-                                       GivenRole = role.RoleName,
-                                       UserId = user.Id
-                                   }).ToListAsync();
-                return items.GroupBy(x => x.UserId)
-                    .Select(x => new UserWithRoles
-                    {
-                        Id = x.Key,
-                        Roles = x.ToList().Select(x => x.GivenRole)
-                    });
-            }
-        }
         public async Task<Guid> AddUser(UserDTO user)
         {
             using (var context = new UsersDBContext(_options))
@@ -140,21 +107,7 @@ namespace DataAccess
             }
         }
 
-        async Task<IEnumerable<string>> IUserRepository.GetUserRolesById(Guid userId)
-        {
-            using (var context = new UsersDBContext(_options))
-            {
-                var usersRoles = await context.UserRoles.Where(x => x.UserId == userId).ToListAsync();
-                List<string> rolesStrings = new List<string>();
-                foreach(var userRole in usersRoles)
-                {
-                    rolesStrings.Add((await context.Roles
-                        .FirstOrDefaultAsync(x => x.Id == userRole.RoleId)).RoleName);
-                }
-
-                return rolesStrings;
-            }
-        }
+        
 
         public async Task<UserDTO> GetUserByAuthData(AuthenticationModel authenticationModel)
         {

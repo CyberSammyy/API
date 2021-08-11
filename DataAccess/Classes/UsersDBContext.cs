@@ -9,6 +9,7 @@ namespace DataAccess.Classes
         public DbSet<RoleDTO> Roles { get; set; }
         public DbSet<UserRolesDTO> UserRoles { get; set; }
         public DbSet<PostDTO> Posts { get; set; }
+        public DbSet<EmailDTO> Emails { get; set; }
         public UsersDBContext(DbContextOptions<UsersDBContext> options) : base(options)
         {
 
@@ -18,6 +19,7 @@ namespace DataAccess.Classes
         {
 
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

@@ -12,10 +12,12 @@ namespace DataAccess
     public class PostsRepository : IPostsRepository
     {
         private readonly DbContextOptions<UsersDBContext> _options;
+
         public PostsRepository(DbContextOptions<UsersDBContext> options)
         {
             _options = options;
         }
+
         public async Task<Guid> AddPost(PostDTO post)
         {
             using (var context = new UsersDBContext(_options))
@@ -24,6 +26,7 @@ namespace DataAccess
                 {
                     await context.AddAsync(post);
                     await context.SaveChangesAsync();
+
                     return post.Id;
                 }
                 catch (Exception)
@@ -41,6 +44,7 @@ namespace DataAccess
                 try
                 {
                     var post = await context.Posts.FirstOrDefaultAsync(x => x.Id == id);
+
                     return post;
                 }
                 catch (Exception)
@@ -57,6 +61,7 @@ namespace DataAccess
                 try
                 {
                     var posts = context.Posts.ToList();
+
                     return posts;
                 }
 #pragma warning disable CS0168 // Variable is declared but never used
@@ -75,8 +80,10 @@ namespace DataAccess
                 try
                 {
                     var foundPosts = await context.Posts.FirstOrDefaultAsync(x => x.Id == post.Id);
+
                     context.Update(post);
                     await context.SaveChangesAsync();
+
                     return true;
                 }
                 catch (Exception)
@@ -93,8 +100,10 @@ namespace DataAccess
                 try
                 {
                     var postToDelete = await context.Posts.FirstOrDefaultAsync(x => x.Id == id);
+
                     context.Posts.Remove(postToDelete);
                     await context.SaveChangesAsync();
+
                     return true;
                 }
                 catch (Exception)

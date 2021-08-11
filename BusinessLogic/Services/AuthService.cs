@@ -12,19 +12,24 @@ namespace BusinessLogic.Services
     public class AuthService : IAuthService
     {
         private readonly IUserService _userService;
+
         private readonly IHashService _hashService;
+
+        private readonly IRolesService _rolesService;
+
         private readonly IMapper _mapper;
 
-        public AuthService(IUserService userService, IMapper mapper, IHashService hashService)
+        public AuthService(IUserService userService, IMapper mapper, IHashService hashService, IRolesService rolesService)
         {
             _userService = userService;
             _hashService = hashService;
             _mapper = mapper;
+            _rolesService = rolesService;
         }
 
-        public bool ConfirmEmail(string message)
+        public async Task<ConfirmationResult> ConfirmEmail(string message)
         {
-            throw new NotImplementedException();
+            return await _userService.ConfirmEmail(message);
         }
 
         public async Task<ValidationResult> Login(AuthenticationModel authenticationModel)
@@ -38,7 +43,7 @@ namespace BusinessLogic.Services
 
             if(isUserNotNull)
             {
-                var roles = await _userService.GetUserRolesById(foundUser.Id);
+                var roles = await _rolesService.GetUserRolesById(foundUser.Id);
                 userWithRoles = new UserWithRoles
                 {
                     Id = foundUser.Id,
@@ -59,8 +64,8 @@ namespace BusinessLogic.Services
             }
 
             return await _userService.RegisterUser(userToRegister);
-
         }
+
         private bool IsPasswordValid(string password)
         {
             var regEx = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[#?!@$%^&*-]))", RegexOptions.Compiled);

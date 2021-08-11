@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Models
 {
@@ -12,6 +10,7 @@ namespace DataAccess.Models
         public string Topic { get; set; }
         public string Body { get; set; }
         public string Author { get; set; }
+
         public PostDTO() { }
 
         public PostDTO(Guid id, Guid authorId, DateTime postDate, string topic, string body, string author)

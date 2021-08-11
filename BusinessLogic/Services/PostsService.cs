@@ -12,6 +12,7 @@ namespace BusinessLogic.Services
     public class PostsService : IPostsService
     {
         private readonly IPostsRepository _postsRepository;
+
         private readonly IMapper _mapper;
 
         public PostsService(IPostsRepository postsRepository, IMapper mapper)

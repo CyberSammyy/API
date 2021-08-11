@@ -15,8 +15,11 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
+
         private readonly IUserService _service;
+
         private readonly IAuthService _authService;
+
         private readonly ISessionService _sessionService;
 
         public UserController(ILogger<UserController> logger, IUserService service,
@@ -84,7 +87,6 @@ namespace API.Controllers
             //return await _service.AddUser(user);
         }
 
-
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<bool> DeleteById(Guid id)
@@ -97,6 +99,14 @@ namespace API.Controllers
         public async Task<bool> PutUser(User user)
         {
             return await _service.PutUser(user);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("confirm")]
+        public IActionResult Confirm(string message)
+        {
+            var result = _authService.ConfirmEmail(message);
+            return Ok(result);
         }
     }
 }

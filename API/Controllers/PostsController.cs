@@ -15,6 +15,7 @@ namespace API.Controllers
     public class PostsController
     {
         private readonly ILogger<PostsController> _logger;
+
         private readonly IPostsService _service;
 
         public PostsController(ILogger<PostsController> logger, IPostsService service)
