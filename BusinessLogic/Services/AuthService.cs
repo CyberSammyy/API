@@ -29,7 +29,18 @@ namespace BusinessLogic.Services
 
         public async Task<ConfirmationResult> ConfirmEmail(string message)
         {
-            return await _userService.ConfirmEmail(message);
+            try
+            {
+                return await _userService.ConfirmEmail(message);
+            }
+            catch(Exception ex)
+            {
+                return new ConfirmationResult
+                {
+                    IsSuccessful = false,
+                    UserId = Guid.Empty
+                };
+            }
         }
 
         public async Task<ValidationResult> Login(AuthenticationModel authenticationModel)
@@ -54,7 +65,7 @@ namespace BusinessLogic.Services
             return new ValidationResult(isUserNotNull, userWithRoles);
         }
 
-        public async Task<bool> RegisterUser(User userToRegister)
+        public async Task<bool> RegisterUser(User userToRegister, string path)
         {
             if(!IsPasswordValid(userToRegister.Password) || 
                !IsMailFormatValid(userToRegister.Email))
@@ -63,7 +74,14 @@ namespace BusinessLogic.Services
                 //return true;
             }
 
-            return await _userService.RegisterUser(userToRegister);
+            var registrationResult = await _userService.RegisterUser(userToRegister);
+
+            if (registrationResult)
+            {
+                _userService.AddUserMail(userToRegister.Id, userToRegister.Email, path);
+            }
+
+            return registrationResult;
         }
 
         private bool IsPasswordValid(string password)

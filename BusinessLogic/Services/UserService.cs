@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BusinessLogic
@@ -25,6 +26,7 @@ namespace BusinessLogic
         private readonly IMailService _mailService;
 
         private readonly IMailExchangerService _mailExchangerService;
+
 
         public UserService(IUserRepository userRepository, 
             IRolesRepository rolesRepository, 
@@ -144,7 +146,7 @@ namespace BusinessLogic
             userToRegister.Id = Guid.NewGuid();
             try
             {
-                return await _userRepository.RegisterUser(_mapper.Map<UserDTO>(userToRegister));
+                return await _userRepository.RegisterUser(_mapper.Map<UserDTO>(userToRegister), Constants.defaultRoleName);
             }
 #pragma warning disable CS0168 // Variable is declared but never used
             catch(Exception ex)
@@ -184,8 +186,14 @@ namespace BusinessLogic
         {
             try
             {
+                JsonSerializerOptions options = new JsonSerializerOptions()
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve,
+                    WriteIndented = true
+                };
+
                 var decrypted = EncryptionHelper.Decrypt(message);
-                var model = JsonSerializer.Deserialize<ConfirmationMessageModel>(decrypted);
+                var model = JsonSerializer.Deserialize<ConfirmationMessageModel>(decrypted, options);
                 var isSuccessful = _mailService.ConfirmMail(model);
                 return new ConfirmationResult
                 {

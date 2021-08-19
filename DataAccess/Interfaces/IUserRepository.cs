@@ -14,7 +14,7 @@ namespace DataAccess.Interfaces
         public Task<UserDTO> GetUserById(Guid id);
         public IEnumerable<UserDTO> GetUsers();
         Task<UserDTO> GetUserByAuthData(AuthenticationModel authenticationModel);
-        Task<bool> RegisterUser(UserDTO userToRegister);
+        Task<bool> RegisterUser(UserDTO userToRegister, string starterRoleName);
 
     }
 }

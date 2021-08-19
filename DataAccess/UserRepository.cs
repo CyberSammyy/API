@@ -13,10 +13,12 @@ namespace DataAccess
     public class UserRepository : IUserRepository
     {
         private readonly DbContextOptions<UsersDBContext> _options;
+        private readonly IRolesRepository _rolesRepository;
         
-        public UserRepository(DbContextOptions<UsersDBContext> options)
+        public UserRepository(DbContextOptions<UsersDBContext> options, IRolesRepository rolesRepository)
         {
             _options = options;
+            _rolesRepository = rolesRepository;
         }
 
         public async Task<Guid> AddUser(UserDTO user)
@@ -119,16 +121,31 @@ namespace DataAccess
             }
         }
 
-        public async Task<bool> RegisterUser(UserDTO userToRegister)
+        public async Task<bool> RegisterUser(UserDTO userToRegister, string starterRole)
         {
-            bool result = false;
+            bool resultAddingUser = false;
+            bool resultAddingRole = false;
             using (var context = new UsersDBContext(_options))
             {
-                result = await context.Users.AddAsync(userToRegister) != null;
-                await context.SaveChangesAsync();
+                try
+                {
+                    resultAddingUser = await context.Users.AddAsync(userToRegister) != null;
+                    await context.SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
             }
 
-            return result;
+            resultAddingRole = await AddStarterRole(userToRegister.Id, starterRole);
+
+            return resultAddingRole && resultAddingUser;
+        }
+
+        private async Task<bool> AddStarterRole(Guid id, string starterRoleName)
+        {
+            return await _rolesRepository.SetRole(id, starterRoleName);
         }
     }
 }

@@ -13,5 +13,7 @@
 
         public const int minimumPhoneLength = 6;
         public const int maximumPhoneLength = 14;
+
+        public const string defaultRoleName = "Registered";
     }
 }

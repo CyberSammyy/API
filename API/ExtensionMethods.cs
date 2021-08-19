@@ -24,6 +24,9 @@ namespace API
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IPostsRepository, PostsRepository>();
             services.AddScoped<IPostsService, PostsService>();
+            services.AddScoped<IMailExchangerService, MailExchangerService>();
+            services.AddScoped<IMailService, MailService>();
+            services.AddScoped<IMailRepository, MailRepository>();
         }
 
         public static void AddAuthentication(this IServiceCollection services, AppSettings appSettings)

@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<UsersController> _logger;
 
         private readonly IUserService _service;
 
@@ -22,7 +21,7 @@ namespace API.Controllers
 
         private readonly ISessionService _sessionService;
 
-        public UserController(ILogger<UserController> logger, IUserService service,
+        public UsersController(ILogger<UsersController> logger, IUserService service,
             IAuthService authService, ISessionService sessionService)
         {
             _logger = logger;
@@ -51,7 +50,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(User userToRegister)
         {
-            var isRegistered = await _authService.RegisterUser(userToRegister);
+            var isRegistered = await _authService.RegisterUser(userToRegister, $"{Request.Scheme}://{Request.Host}");
 
             if(isRegistered)
             {
@@ -79,14 +78,6 @@ namespace API.Controllers
             return await _service.GetUserById(id);
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public /*async*/ Task<Guid> PostUser(User user)
-        {
-            throw new NotImplementedException();
-            //return await _service.AddUser(user);
-        }
-
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<bool> DeleteById(Guid id)
@@ -103,10 +94,17 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpGet("confirm")]
-        public IActionResult Confirm(string message)
+        public async Task<IActionResult> Confirm(string message)
         {
-            var result = _authService.ConfirmEmail(message);
-            return Ok(result);
+            try
+            {
+                var result = await _authService.ConfirmEmail(message);
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
     }
 }

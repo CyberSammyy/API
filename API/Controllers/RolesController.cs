@@ -14,11 +14,11 @@ namespace API.Controllers
     [Route("[controller]")]
     public class RolesController
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<UsersController> _logger;
 
         private readonly IRolesService _rolesService;
 
-        public RolesController(ILogger<UserController> logger, IRolesService rolesService)
+        public RolesController(ILogger<UsersController> logger, IRolesService rolesService)
         {
             _logger = logger;
             _rolesService = rolesService;

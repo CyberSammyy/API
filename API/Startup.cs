@@ -1,3 +1,4 @@
+using API.Middlewares;
 using BusinessLogic.Classes;
 using BusinessLogic.Models;
 using DataAccess.Classes;
@@ -25,11 +26,8 @@ namespace API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<UsersDBContext>(options
-                => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-
-            //var smtpOptions = Configuration.GetSection("SmtpOptions");
-            //services.Configure<SmtpOptions>(smtpOptions);
+            var smtpOptions = Configuration.GetSection("SmtpOptions");
+            services.Configure<SmtpOptions>(smtpOptions);
 
             var hashSettings = Configuration.GetSection("HashSettings");
             services.Configure<HashSettings>(hashSettings);
@@ -38,8 +36,6 @@ namespace API
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
-
-            services.AddHttpClient();
 
             services.RegisterServices();
 
@@ -81,8 +77,12 @@ namespace API
                 });
             });
 
+            services.AddDbContext<UsersDBContext>(options
+                => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
             services.AddAuthentication(appSettings);
             services.AddAuthorization();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -97,6 +97,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseMiddleware<LoggerMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
