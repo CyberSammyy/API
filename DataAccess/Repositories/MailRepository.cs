@@ -31,8 +31,8 @@ namespace DataAccess
 
                 return entity != null;
             }
-
         }
+
         public async Task SaveMail(EmailDTO email)
         {
             using (var context = new UsersDBContext(_options))

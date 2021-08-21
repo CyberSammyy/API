@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace DataAccess.Models
+namespace WebSocketChatServer
 {
-    public class UserDTO
+    public class User
     {
         public Guid Id { get; set; }
         public string Nickname { get; set; }
         public int PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
 
         public override string ToString()
         {

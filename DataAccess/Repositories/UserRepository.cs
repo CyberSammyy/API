@@ -13,6 +13,7 @@ namespace DataAccess
     public class UserRepository : IUserRepository
     {
         private readonly DbContextOptions<UsersDBContext> _options;
+
         private readonly IRolesRepository _rolesRepository;
         
         public UserRepository(DbContextOptions<UsersDBContext> options, IRolesRepository rolesRepository)
@@ -29,13 +30,13 @@ namespace DataAccess
                 {
                     await context.AddAsync(user);
                     await context.SaveChangesAsync();
+
                     return user.Id;
                 }
                 catch (Exception)
                 {
                     return Guid.Empty;
                 }
-
             }
         }
 
@@ -46,6 +47,7 @@ namespace DataAccess
                 try
                 {
                     var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
+
                     return user;
                 }
                 catch (Exception)
@@ -62,6 +64,7 @@ namespace DataAccess
                 try
                 {
                     var users = context.Users.ToList();
+
                     return users;
                 }
 #pragma warning disable CS0168 // Variable is declared but never used
@@ -82,6 +85,7 @@ namespace DataAccess
                     var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
                     context.Update(user);
                     await context.SaveChangesAsync();
+
                     return true;
                 }
                 catch (Exception)
@@ -100,6 +104,7 @@ namespace DataAccess
                     var userToDelete = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
                     context.Users.Remove(userToDelete);
                     await context.SaveChangesAsync();
+
                     return true;
                 }
                 catch (Exception)
@@ -109,14 +114,13 @@ namespace DataAccess
             }
         }
 
-        
-
         public async Task<UserDTO> GetUserByAuthData(AuthenticationModel authenticationModel)
         {
             using (var context = new UsersDBContext(_options))
             {
                 var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Nickname == authenticationModel.Login &&
                     x.PasswordHash == authenticationModel.Password);
+
                 return foundUser ?? throw new ArgumentNullException("User not found!");
             }
         }
@@ -132,7 +136,9 @@ namespace DataAccess
                     resultAddingUser = await context.Users.AddAsync(userToRegister) != null;
                     await context.SaveChangesAsync();
                 }
-                catch(Exception ex)
+#pragma warning disable CS0168 // Variable is declared but never used
+                catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     return false;
                 }

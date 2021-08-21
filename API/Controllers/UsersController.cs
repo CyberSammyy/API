@@ -101,7 +101,9 @@ namespace API.Controllers
                 var result = await _authService.ConfirmEmail(message);
                 return Ok(result);
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch(Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 return BadRequest();
             }

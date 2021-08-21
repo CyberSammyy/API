@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace API.Middlewares
@@ -26,10 +23,13 @@ namespace API.Middlewares
                 System.Threading.Monitor.Enter(locker, ref lockWasTaken);
                 using (var streamWriter = new StreamWriter("requests.log", true))
                 {
-                    await streamWriter.WriteLineAsync($"{context.Request.Scheme}{context.Request.Host}{context.Request.Path}<{context.Request.Body.Position}>[{context.Request.QueryString.Value}] executed at [{DateTime.UtcNow}]");
+                    await streamWriter
+                        .WriteLineAsync($"{context.Request.Scheme}{context.Request.Host}{context.Request.Path}<{context.Request.Body.Position}>[{context.Request.QueryString.Value}] executed at [{DateTime.UtcNow}]");
                 }
             }
-            catch(Exception ex)
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
 
             }
