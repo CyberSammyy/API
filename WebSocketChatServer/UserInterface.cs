@@ -19,10 +19,10 @@ namespace WebSocketChatServer
             Console.WriteLine("Input login");
             string userName = Console.ReadLine();
 
-            Console.WriteLine("Input email");
+            Console.WriteLine("Input email (You can input random text if you want to login)");
             string email = Console.ReadLine();
 
-            Console.WriteLine("Input phone number");
+            Console.WriteLine("Input phone number (You can input random text if you want to login)");
             string phoneNumber = Console.ReadLine();
 
             Console.WriteLine("Input password");

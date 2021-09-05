@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "APIDatabase", "APIDatabase\APIDatabase.sqlproj", "{93ADD74B-D69C-4432-BDA2-330996D9ACA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketChatServer", "WebSocketChatServer\WebSocketChatServer.csproj", "{D0AF6199-5A78-4C05-BD96-889AB795F9F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocketChatServer", "WebSocketChatServer\WebSocketChatServer.csproj", "{D0AF6199-5A78-4C05-BD96-889AB795F9F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocketChatServerApp", "WebSocketChatServerApp\WebSocketChatServerApp.csproj", "{F006D2DB-9250-4BE0-900F-235A583753E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocketChatClientAppConsole", "WebSocketChatClientAppConsole\WebSocketChatClientAppConsole.csproj", "{FE4354D1-538E-453E-948C-B2CF8A889093}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,14 @@ Global
 		{D0AF6199-5A78-4C05-BD96-889AB795F9F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0AF6199-5A78-4C05-BD96-889AB795F9F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0AF6199-5A78-4C05-BD96-889AB795F9F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F006D2DB-9250-4BE0-900F-235A583753E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F006D2DB-9250-4BE0-900F-235A583753E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F006D2DB-9250-4BE0-900F-235A583753E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F006D2DB-9250-4BE0-900F-235A583753E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4354D1-538E-453E-948C-B2CF8A889093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4354D1-538E-453E-948C-B2CF8A889093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4354D1-538E-453E-948C-B2CF8A889093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4354D1-538E-453E-948C-B2CF8A889093}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
