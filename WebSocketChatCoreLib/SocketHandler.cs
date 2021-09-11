@@ -40,7 +40,9 @@ namespace WebSocketChatServerApp
 
                     return true;
                 }
-                catch(Exception ex)
+#pragma warning disable CS0168 // Variable is declared but never used
+                catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     return false;
                 }
@@ -60,7 +62,9 @@ namespace WebSocketChatServerApp
                     {
                         return await SendMessage(user.WebSocket, messageToSend);
                     }
-                    catch(Exception ex)
+#pragma warning disable CS0168 // Variable is declared but never used
+                    catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                     {
                         return false;
                     }

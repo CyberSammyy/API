@@ -15,42 +15,6 @@ namespace WebSocketChatClientAppConsole
             Run().GetAwaiter().GetResult();
         }
 
-        //static async Task Run()
-        //{
-        //    using (var client = new ClientWebSocket())
-        //    {
-        //        var serviceUri = new Uri(@"ws://localhost:5000/ws");
-        //        try
-        //        {
-        //            await client.ConnectAsync(serviceUri, CancellationToken.None);
-        //            Console.WriteLine($"Session started at {DateTime.UtcNow:F} \r\n GLHF!");
-        //            while (client.State == WebSocketState.Open)
-        //            {
-        //                string writtenMessage = Console.ReadLine();
-        //                if (!string.IsNullOrEmpty(writtenMessage))
-        //                {
-        //                    var messageBytes = Encoding.Unicode.GetBytes(writtenMessage);
-        //                    await client.SendAsync(
-        //                        new ArraySegment<byte>(messageBytes),
-        //                        WebSocketMessageType.Text,
-        //                        true,
-        //                        CancellationToken.None);
-        //                }
-
-        //                await client.CloseOutputAsync(WebSocketCloseStatus.NormalClosure,
-        //                    $"Closed output at {DateTime.UtcNow:F}",
-        //                    CancellationToken.None);
-
-        //                await ReceiveAsync(client);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(ex.Message);
-        //        }
-        //    }
-        //}
-
         public static async Task Run()
         {
             var client = new ClientWebSocket();
@@ -68,10 +32,10 @@ namespace WebSocketChatClientAppConsole
                         true,
                         CancellationToken.None);
                 }
-
+        
                 await client.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
             });
-
+        
             var receive = ReceiveAsync(client);
             await Task.WhenAll(send, receive);
         }
