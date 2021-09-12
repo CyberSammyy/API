@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const string APP_PATH = "http://localhost:5000";
+        public const string APP_PATH = "http://localhost:5050";
     }
 }

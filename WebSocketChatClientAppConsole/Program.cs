@@ -32,7 +32,7 @@ namespace WebSocketChatClientAppConsole
                         true,
                         CancellationToken.None);
                 }
-        
+
                 await client.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
             });
         
@@ -58,7 +58,7 @@ namespace WebSocketChatClientAppConsole
         private static void ProcessMessage(Message message)
         {
             Console.ForegroundColor = message.Settings.ReceivedMessageColor;
-            Console.WriteLine(message.MessageText);
+            Console.WriteLine($"{message.SenderNickname} at {DateTime.Now:g} said: {message.MessageText}");
             Console.ForegroundColor = message.Settings.MessageColor;
         }
     }

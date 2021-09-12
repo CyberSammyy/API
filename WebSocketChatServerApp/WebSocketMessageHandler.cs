@@ -23,7 +23,7 @@ namespace WebSocketChatServerApp
 
             return await SendPublicMessage(new Message
             {
-                MessageText = Consts.Messages.JoinMessage,
+                MessageText = Consts.Messages.JoinMessage + "Registration status: " + socketUser.IsRegistered,
                 SenderNickname = socketUser.Nickname,
                 Settings = new MessageSettings(MessageSettings.MessageSettingsPreset.DefaultSettings)
             }, socketUser.Id);

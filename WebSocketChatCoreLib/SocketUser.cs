@@ -13,6 +13,10 @@ namespace WebSocketChatServerApp
         public string Email { get; set; }
         public MessageSettings UserMessageSettings { get; set; } = new MessageSettings(MessageSettings.MessageSettingsPreset.DefaultSettings);
         public WebSocket WebSocket { get; set; }
+        public int PhoneNumber { get; set; }
+        public bool IsConfirmed { get; set; } = false;
+        public bool IsRegistered { get; set; } = false;
+        public string Password { get; set; }
 
         public SocketUser(WebSocket websocket)
         {

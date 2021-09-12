@@ -28,11 +28,14 @@ namespace WebSocketChatServerApp
             public const string PrivateMessageCommand = "msg";
             public const string NicknameChangeCommand = "nickname";
             public const string ColorChangeCommand = "color";
+            public const string RegistrationCommand = "register";
+            public const string LoginCommand = "login";
         }
 
         public const string PrivateMessageFormat = "{0} => {1}";
         public const string IdFormat = "N";
         public const int MessageSizeInBytes = 1024 * 4;
         public const string ColorChangeMessage = "Color changed!";
+        public const string RegistrationCompletenessMessage = "Has been registered successfully!";
     }
 }

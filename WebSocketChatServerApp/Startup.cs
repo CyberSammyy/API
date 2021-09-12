@@ -6,7 +6,10 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using WebSocketChatCoreLib;
+using WebSocketChatServer;
 
 namespace WebSocketChatServerApp
 {
@@ -18,6 +21,15 @@ namespace WebSocketChatServerApp
         {
             services.AddTransient<ConnectionManager>();
             services.AddSingleton<SocketHandler, WebSocketMessageHandler>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            var assemblies = new[]
+            {
+                Assembly.GetAssembly(typeof(UserModelProfile))
+            };
+
+            services.AddAutoMapper(assemblies);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +41,7 @@ namespace WebSocketChatServerApp
             }
 
             app.UseWebSockets();
+
 
             app.Map("/ws", x => x.UseMiddleware<SocketMiddleware>(services.GetService<SocketHandler>()));
             app.UseStaticFiles();

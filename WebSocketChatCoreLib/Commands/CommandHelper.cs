@@ -1,4 +1,5 @@
 ﻿using System;
+using WebSocketChatCoreLib.Commands;
 
 namespace WebSocketChatServerApp.Commands
 {
@@ -25,6 +26,10 @@ namespace WebSocketChatServerApp.Commands
                             => NicknameChangeCommand.Create(commandArgs),
                         string str when str.StartsWith(Consts.Commands.ColorChangeCommand)
                             => ColorChangeCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.RegistrationCommand)
+                            => RegistrationCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.LoginCommand)
+                            => LoginCommand.Create(commandArgs),
                         _ => InvalidCommand.Create()
                     };
                 }

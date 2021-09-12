@@ -51,6 +51,29 @@ namespace WebSocketChatServerApp
             return false;
         }
 
+        public async Task<bool> SendMessageToYourself(Message messageToSend, Guid senderId)
+        {
+            foreach (var user in ConnectionManager)
+            {
+                if (senderId == user.Id)
+                {
+                    messageToSend.Settings.MessageColor = user.UserMessageSettings.MessageColor;
+                    try
+                    {
+                        return await SendMessage(user.WebSocket, messageToSend);
+                    }
+#pragma warning disable CS0168 // Variable is declared but never used
+                    catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public async Task<bool> SendPublicMessage(Message messageToSend, Guid senderId)
         {
             foreach(var user in ConnectionManager)
