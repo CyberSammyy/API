@@ -42,13 +42,21 @@ namespace WebSocketChatCoreLib.Commands
             if (result.IsSuccessStatusCode)
             {
                 sender.IsRegistered = true;
+                sender.Nickname = Args[0];
+                sender.Token = await result.Content.ReadAsStringAsync();
+
                 await socketHandler.SendMessageToYourself(
                     new Message
                     {
                         SenderNickname = sender.Nickname,
-                        MessageText = sender.Nickname + Consts.RegistrationCompletenessMessage + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
+                        MessageText = string.Format(Consts.LoginCompletenessMessage, sender.Nickname) + "\r\n" + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
                         Settings = new MessageSettings()
                     }, sender.Id);
+
+                await socketHandler.SendPublicMessage(new Message
+                {
+                    MessageText = string.Format(Consts.UserLoginMessage, sender.Nickname)
+                }, sender.Id);
             }
         }
     }

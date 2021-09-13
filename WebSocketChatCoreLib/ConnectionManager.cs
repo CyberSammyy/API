@@ -82,6 +82,17 @@ namespace WebSocketChatServerApp
             }
         }
 
+        public Guid this[string Nickname, bool isSearchingByNickname]
+        {
+            get
+            {
+                lock(_locker)
+                {
+                    return _connections.FirstOrDefault(x => x.Nickname == Nickname).Id;
+                }
+            }
+        }
+
         public SocketUser this[WebSocket socket]
         {
             get

@@ -29,7 +29,7 @@ namespace WebSocketChatServerApp
             {
                 await socketHandler.SendMessageToYourself(new Message
                 {
-                    MessageText = "You are not registered user! Some features are disabled. \r\n Please, complete your registration by command /register Nickname Email Password Password. \r\n If have account, you can try to login by typing /login Nickname Password"
+                    MessageText = Consts.Errors.NotRegisteredUserErrorMessage
                 }, sender.Id);
 
                 return;

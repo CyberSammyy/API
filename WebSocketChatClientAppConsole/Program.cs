@@ -57,9 +57,24 @@ namespace WebSocketChatClientAppConsole
 
         private static void ProcessMessage(Message message)
         {
+            if (message.SenderNickname == null || message.Settings == null)
+            {
+                message.SenderNickname = string.Empty;
+                message.Settings = new MessageSettings(MessageSettings.MessageSettingsPreset.DefaultSettings);
+            }
+
             Console.ForegroundColor = message.Settings.ReceivedMessageColor;
-            Console.WriteLine($"{message.SenderNickname} at {DateTime.Now:g} said: {message.MessageText}");
-            Console.ForegroundColor = message.Settings.MessageColor;
+            if(message.SenderNickname.Length == 0 || 
+                message.SenderNickname == string.Empty ||
+                message.SenderNickname == "")
+            {
+                Console.WriteLine($"{message.MessageText}");
+            }
+            else
+            {
+                Console.WriteLine($"{message.SenderNickname} at {DateTime.Now:g} said: {message.MessageText}");
+                Console.ForegroundColor = message.Settings.MessageColor;
+            }
         }
     }
 }

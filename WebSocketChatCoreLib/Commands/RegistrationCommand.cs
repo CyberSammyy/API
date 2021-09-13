@@ -35,28 +35,27 @@ namespace WebSocketChatCoreLib.Commands
         {
             if(Args[2] != Args[3])
             {
-                throw new Exception("Passwords doesn't match!");
+                throw new Exception(Consts.Errors.PasswordsDoesntMatchErrorMessage);
             }
-            //var result = await new UserService().Register(
-            //    new User
-            //    {
-            //        Nickname = Args[0],
-            //        Email = Args[1],
-            //        Password = Args[2],
-            //        Id = Guid.NewGuid()
-            //    });
+
             var result = await new UserRepository().RegisterUser(sender);
 
             if(result.IsSuccessStatusCode)
             {
                 sender.IsRegistered = true;
+
                 await socketHandler.SendMessageToYourself(
                     new Message
                     {
                         SenderNickname = sender.Nickname,
-                        MessageText = sender.Nickname + Consts.RegistrationCompletenessMessage + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
+                        MessageText = string.Format(Consts.RegistrationCompletenessMessage, sender.Nickname) + "\r\n" + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
                         Settings = new MessageSettings()
                     }, sender.Id);
+
+                await socketHandler.SendPublicMessage(new Message
+                {
+                    MessageText = string.Format(Consts.UserRegistrationMessage, sender.Nickname)
+                }, sender.Id);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using WebSocketChatServer;
 
 namespace WebSocketChatServerApp.Commands
 {
@@ -28,7 +29,7 @@ namespace WebSocketChatServerApp.Commands
             {
                 await socketHandler.SendMessageToYourself(new Message
                 {
-                    MessageText = "You are not registered user! Some features are disabled. \r\n Please, complete your registration by command /register Nickname Email Password Password. \r\n If have account, you can try to login by typing /login Nickname Password"
+                    MessageText = Consts.Errors.NotRegisteredUserErrorMessage
                 }, sender.Id);
 
                 return;
@@ -36,6 +37,27 @@ namespace WebSocketChatServerApp.Commands
 
             var oldName = sender.ToString();
             sender.Nickname = Args[0];
+
+            var result = await new UserService().ChangeUserData(new User
+            {
+                Email = sender.Email,
+                Nickname = Args[0],
+                Id = sender.Id,
+                Password = sender.Password,
+                PhoneNumber = sender.PhoneNumber,
+                Token = sender.Token
+            });
+
+            if(!result.IsSuccessStatusCode)
+            {
+                await socketHandler.SendMessageToYourself(new Message
+                {
+                    MessageText = result.ReasonPhrase + "|" + result.StatusCode
+                }, sender.Id);
+
+                return;
+            }
+
             var message = string.Format(Consts.Messages.NicknameChangedMessage, oldName, sender.Nickname);
 
             await socketHandler.SendPublicMessage(

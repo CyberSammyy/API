@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using System;
 
 namespace WebSocketChatServer
 {
@@ -16,6 +17,9 @@ namespace WebSocketChatServer
             {
                 var response = await client.PostAsJsonAsync(Constants.APP_PATH + @"/Users/register", userToRegister);
 
+                userToRegister.Token = await response.Content.ReadAsStringAsync();
+                Token = userToRegister.Token;
+
                 return response;
             }
         }
@@ -24,8 +28,36 @@ namespace WebSocketChatServer
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your authorization token");
                 var responce = await client.PostAsJsonAsync(Constants.APP_PATH + @"/Users/login", authenticationModel);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await responce.Content.ReadAsStringAsync());
+
+                if(responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Token = await responce.Content.ReadAsStringAsync();
+                    responce.Headers.Add("Token", Token);
+                }
+
+                return responce;
+            }
+        }
+
+        public async Task<HttpResponseMessage> GetUserById(Guid id)
+        {
+            using (var client = new HttpClient())
+            {
+                var responce = await client.PostAsJsonAsync(Constants.APP_PATH + @"/Users/{id}", id);
+
+
+                return responce;
+            }
+        }
+
+        public async Task<HttpResponseMessage> ChangeUserData(User updatedUser)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(updatedUser.Token);
+                var responce = await client.PutAsJsonAsync(Constants.APP_PATH + @"/Users", updatedUser);
 
                 return responce;
             }

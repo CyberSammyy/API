@@ -30,6 +30,10 @@ namespace WebSocketChatServerApp.Commands
                             => RegistrationCommand.Create(commandArgs),
                         string str when str.StartsWith(Consts.Commands.LoginCommand)
                             => LoginCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.GetUserIdCommand)
+                            => GetUserIdCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.RemoveUserAdminCommand)
+                            => RemoveUserAdminCommand.Create(commandArgs),
                         _ => InvalidCommand.Create()
                     };
                 }

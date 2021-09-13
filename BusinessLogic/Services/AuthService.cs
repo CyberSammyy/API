@@ -3,6 +3,7 @@ using BusinessLogic.Classes;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -54,7 +55,7 @@ namespace BusinessLogic.Services
             UserWithRoles userWithRoles = null;
             var isUserNotNull = foundUser != null;
 
-            if(isUserNotNull)
+            if (isUserNotNull)
             {
                 var roles = await _rolesService.GetUserRolesById(foundUser.Id);
                 userWithRoles = new UserWithRoles
