@@ -58,12 +58,29 @@ namespace WebSocketChatServer
             }
         }
 
-        public async Task<HttpResponseMessage> ChangeUserData(User updatedUser)
+        public async Task<HttpResponseMessage> ChangeNickname(Guid userId, string newNickname)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var responce = await client.PutAsJsonAsync(Constants.APP_PATH + @"/Users", updatedUser);
+
+                var responce = await client.PostAsJsonAsync(Constants.APP_PATH + @"/changeNickname", userId + newNickname);
+
+                return responce;
+            }
+        }
+
+        public async Task<HttpResponseMessage> ChangePassword(Guid userId, string newPasswordHash)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+
+                var responce = await client.PostAsJsonAsync(Constants.APP_PATH + @"/changePassword", new
+                {
+                    userId = userId,
+                    newPasswordHash = newPasswordHash
+                });
 
                 return responce;
             }

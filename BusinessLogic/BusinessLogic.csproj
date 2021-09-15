@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\MD5Generator\MD5Generator.csproj" />
   </ItemGroup>
 
 </Project>

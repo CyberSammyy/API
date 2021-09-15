@@ -14,6 +14,8 @@ namespace WebSocketChatServer
         //Task<string> GetValues(string token);
         Task<(HttpResponseMessage response, Guid idFromDataBase)> Login(AuthenticationModel authenticationModel);
         Task<HttpResponseMessage> Register(User userToRegister);
-        Task<HttpResponseMessage> ChangeUserData(User updatedUser);
+        Task<HttpResponseMessage> ChangeNickname(Guid userId, string newNickname);
+        Task<HttpResponseMessage> ChangePassword(Guid userId, string newPasswordHash);
+        //Task<HttpResponseMessage> ChangeUserData(User updatedUser);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.Models;
 using DataAccess.Models;
+using MD5Generator;
 
 namespace BusinessLogic.Classes
 {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MD5Generator;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -18,15 +19,33 @@ namespace WebSocketChatCoreLib
             _userService = userService;
         }
 
-        public async Task<HttpResponseMessage> ChangeUserData(User updatedUser)
+        public async Task<HttpResponseMessage> ChangeNickname(Guid userId, string newNickname)
         {
             try
             {
-                var result = await _userService.ChangeUserData(updatedUser);
+                var result = await _userService.ChangeNickname(userId, newNickname);
                 return result;
             }
 #pragma warning disable CS0168 // Variable is declared but never used
             catch(Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+            {
+                return new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.BadRequest
+                };
+            }
+        }
+
+        public async Task<HttpResponseMessage> ChangePassword(Guid userId, string newPassword)
+        {
+            try
+            {
+                var result = await _userService.ChangePassword(userId, newPassword.GetMD5Hash());
+                return result;
+            }
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch (Exception ex)
 #pragma warning restore CS0168 // Variable is declared but never used
             {
                 return new HttpResponseMessage

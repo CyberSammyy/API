@@ -55,7 +55,7 @@ namespace API.Controllers
             
             return token + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + id 
                 + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + email
-                + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + ph;
+                + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + phoneNumber;
         }
 
         [AllowAnonymous]
@@ -105,10 +105,17 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPut]
-        public async Task<bool> PutUser(string newPassword)
+        [HttpPut("changePassword")]
+        public async Task<bool> ChangePassword(Guid userId, string newPassword)
         {
-            return await _service.PutUser
+            return await _service.ChangePassword(userId, newPassword);
+        }
+
+        [Authorize]
+        [HttpPut("changeNickname")]
+        public async Task<bool> ChangeNickname(Guid userId, string newNickname)
+        {
+            return await _service.ChangeNickname(userId, newNickname);
         }
 
         [AllowAnonymous]

@@ -12,6 +12,7 @@ namespace WebSocketChatCoreLib
     {
         public Task<HttpResponseMessage> RegisterUser(SocketUser userToRegister);
         public Task<(HttpResponseMessage response, Guid idFromDataBase)> Login(AuthenticationModel loginData);
-        public Task<HttpResponseMessage> ChangeUserData(User updatedUser);
+        public Task<HttpResponseMessage> ChangeNickname(Guid userId, string newNickname);
+        public Task<HttpResponseMessage> ChangePassword(Guid userId, string newPassword);
     }
 }

@@ -41,15 +41,7 @@ namespace WebSocketChatServerApp.Commands
             var oldName = sender.ToString();
             sender.Nickname = Args[0];
 
-            var result = await _userRepository.ChangeUserData(new User
-            {
-                Nickname = Args[0],
-                Email = sender.Email,
-                Id = sender.Id,
-                Password = sender.Password,
-                PhoneNumber = sender.PhoneNumber,
-                Token = sender.Token
-            });
+            var result = await _userRepository.ChangeNickname(sender.Id, Args[0]);
 
             if(!result.IsSuccessStatusCode)
             {

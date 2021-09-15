@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MD5Generator\MD5Generator.csproj" />
     <ProjectReference Include="..\WebSocketChatServer\WebSocketChatServer.csproj" />
   </ItemGroup>
 

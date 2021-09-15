@@ -2,6 +2,7 @@
 using DataAccess.Classes;
 using DataAccess.Interfaces;
 using DataAccess.Models;
+using MD5Generator;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -84,14 +85,38 @@ namespace DataAccess
                 {
                     var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
 
-                    foundUser.PasswordHash = 
+                    foundUser.PasswordHash = newPassword.GetMD5Hash();
+
+                    await context.SaveChangesAsync();
+
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    return false;
                 }
             }
         }
 
         public async Task<bool> ChangeNickname(Guid userId, string newNickname)
         {
-            throw new NotImplementedException();
+            using (var context = new UsersDBContext(_options))
+            {
+                try
+                {
+                    var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+                    foundUser.Nickname = newNickname;
+
+                    await context.SaveChangesAsync();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
         }
 
         public async Task<bool> PutUser(UserDTO user)

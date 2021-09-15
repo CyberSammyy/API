@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\APIDatabase\APIDatabase.sqlproj" />
+    <ProjectReference Include="..\MD5Generator\MD5Generator.csproj" />
   </ItemGroup>
 
 </Project>
