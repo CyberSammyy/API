@@ -53,6 +53,7 @@ namespace BusinessLogic.Services
 
             var foundUser = await _userService.GetUserByLoginAndPassword(authenticationModel);
             UserWithRoles userWithRoles = null;
+
             var isUserNotNull = foundUser != null;
 
             if (isUserNotNull)
@@ -65,7 +66,12 @@ namespace BusinessLogic.Services
                 };
             }
 
-            return new ValidationResult(isUserNotNull, userWithRoles);
+            var result = new ValidationResult(isUserNotNull, userWithRoles);
+
+            result.AdditionalParams.Add(nameof(foundUser.Email), foundUser.Email);
+            result.AdditionalParams.Add(nameof(foundUser.PhoneNumber), foundUser.PhoneNumber.ToString());
+
+            return result;
         }
 
         public async Task<bool> RegisterUser(User userToRegister, string path)

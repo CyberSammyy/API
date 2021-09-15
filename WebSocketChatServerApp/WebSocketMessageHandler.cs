@@ -11,8 +11,10 @@ namespace WebSocketChatServerApp
 {
     public class WebSocketMessageHandler : SocketHandler
     {
-        public WebSocketMessageHandler(ConnectionManager socketUsers) : base(socketUsers)
+        private readonly CommandHelper _commandHelper;
+        public WebSocketMessageHandler(CommandHelper commandHelper, ConnectionManager socketUsers) : base(socketUsers)
         {
+            _commandHelper = commandHelper;
         }
 
         public override async Task<bool> OnConnected(WebSocket socket)
@@ -51,7 +53,7 @@ namespace WebSocketChatServerApp
 
         private async Task ProcessMessage(SocketUser senderSocket, string messageFromClient)
         {
-            var command = CommandHelper.GetCommand(messageFromClient);
+            var command = _commandHelper.GetCommand(messageFromClient);
 
             await command?.ProcessMessage(senderSocket, this);
         }

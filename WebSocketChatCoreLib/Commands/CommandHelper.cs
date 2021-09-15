@@ -1,11 +1,19 @@
 ﻿using System;
+using WebSocketChatCoreLib;
 using WebSocketChatCoreLib.Commands;
 
 namespace WebSocketChatServerApp.Commands
 {
-    public static class CommandHelper
+    public class CommandHelper
     {
-        public static Command GetCommand(string message)
+        private static IUserRepository _userRepository;
+
+        public CommandHelper(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public Command GetCommand(string message)
         {
             Command result;
             if (!string.IsNullOrWhiteSpace(message))
@@ -23,13 +31,13 @@ namespace WebSocketChatServerApp.Commands
                         string str when str.StartsWith(Consts.Commands.PrivateMessageCommand)
                             => PrivateMessageCommand.Create(commandArgs),
                         string str when str.StartsWith(Consts.Commands.NicknameChangeCommand)
-                            => NicknameChangeCommand.Create(commandArgs),
+                            => NicknameChangeCommand.Create(commandArgs, _userRepository),
                         string str when str.StartsWith(Consts.Commands.ColorChangeCommand)
                             => ColorChangeCommand.Create(commandArgs),
                         string str when str.StartsWith(Consts.Commands.RegistrationCommand)
-                            => RegistrationCommand.Create(commandArgs),
+                            => RegistrationCommand.Create(commandArgs, _userRepository),
                         string str when str.StartsWith(Consts.Commands.LoginCommand)
-                            => LoginCommand.Create(commandArgs),
+                            => LoginCommand.Create(commandArgs, _userRepository),
                         string str when str.StartsWith(Consts.Commands.GetUserIdCommand)
                             => GetUserIdCommand.Create(commandArgs),
                         string str when str.StartsWith(Consts.Commands.RemoveUserAdminCommand)

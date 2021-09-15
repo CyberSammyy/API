@@ -11,20 +11,17 @@ namespace WebSocketChatCoreLib.Commands
     class RegistrationCommand : Command
     {
         private const int ArgsCount = 4;
-
-        public RegistrationCommand(IUserRepository userRepository) : base(userRepository)
+        private readonly IUserRepository _userRepository;
+        private RegistrationCommand(string[] args, IUserRepository userRepository) : base(args)
         {
-
-        }
-        private RegistrationCommand(string[] args) : base(args)
-        {
+            _userRepository = userRepository;
         }
 
-        public static RegistrationCommand Create(string[] args)
+        public static RegistrationCommand Create(string[] args, IUserRepository userRepository)
         {
             if (args.Length == ArgsCount)
             {
-                return new RegistrationCommand(args);
+                return new RegistrationCommand(args, userRepository);
             }
 
             throw new ArgumentException(
@@ -38,7 +35,11 @@ namespace WebSocketChatCoreLib.Commands
                 throw new Exception(Consts.Errors.PasswordsDoesntMatchErrorMessage);
             }
 
-            var result = await new UserRepository().RegisterUser(sender);
+            sender.Nickname = Args[0];
+            sender.Email = Args[1];
+            sender.Password = Args[2];
+
+            var result = await _userRepository.RegisterUser(sender);
 
             if(result.IsSuccessStatusCode)
             {

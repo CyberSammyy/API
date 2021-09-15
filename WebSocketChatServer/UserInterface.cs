@@ -36,11 +36,11 @@ namespace WebSocketChatServer
             {
                 try
                 {
-                    requestResult = await _userService.Login(new AuthenticationModel
+                    requestResult = (await _userService.Login(new AuthenticationModel
                     {
                         Login = userName,
                         Password = password
-                    });
+                    })).response;
                 }
                 catch(Exception ex)
                 {

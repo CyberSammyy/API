@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System;
+using HelperClasses;
 
 namespace WebSocketChatServer
 {
@@ -24,20 +25,25 @@ namespace WebSocketChatServer
             }
         }
 
-        public async Task<HttpResponseMessage> Login(AuthenticationModel authenticationModel)
+        public async Task<(HttpResponseMessage response, Guid idFromDataBase)> Login(AuthenticationModel authenticationModel)
         {
             using (var client = new HttpClient())
             {
                 var responce = await client.PostAsJsonAsync(Constants.APP_PATH + @"/Users/login", authenticationModel);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await responce.Content.ReadAsStringAsync());
+
+                var tokenAndIdFromDb = await responce.Content.ReadAsStringAsync();
+
+                var parsedTokenAndId = TokenAndIdParser.ParseTokenIdString(tokenAndIdFromDb);
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", parsedTokenAndId.token);
 
                 if(responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    Token = await responce.Content.ReadAsStringAsync();
+                    Token = parsedTokenAndId.token;
                     responce.Headers.Add("Token", Token);
                 }
 
-                return responce;
+                return (responce, parsedTokenAndId.id);
             }
         }
 
@@ -56,7 +62,7 @@ namespace WebSocketChatServer
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(updatedUser.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var responce = await client.PutAsJsonAsync(Constants.APP_PATH + @"/Users", updatedUser);
 
                 return responce;

@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WebSocketChatCoreLib;
 using WebSocketChatServer;
+using WebSocketChatServerApp.Commands;
 
 namespace WebSocketChatServerApp
 {
@@ -20,9 +21,10 @@ namespace WebSocketChatServerApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ConnectionManager>();
-            services.AddSingleton<SocketHandler, WebSocketMessageHandler>();
+            services.AddScoped<SocketHandler, WebSocketMessageHandler>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<CommandHelper>();
 
             var assemblies = new[]
             {

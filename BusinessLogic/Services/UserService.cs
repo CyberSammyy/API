@@ -99,6 +99,30 @@ namespace BusinessLogic
             }
         }
 
+        public async Task<bool> ChangePassword(Guid userId, string newPassword)
+        {
+            try
+            {
+                return await _userRepository.ChangePassword(userId, newPassword);
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> ChangeNickname(Guid userId, string newNickname)
+        {
+            try
+            {
+                return await _userRepository.ChangeNickname(userId, newNickname);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> PutUser(User user)
         {
             try

@@ -23,15 +23,17 @@ namespace API.Middlewares
                 System.Threading.Monitor.Enter(locker, ref lockWasTaken);
                 using (var streamWriter = new StreamWriter("requests.log", true))
                 {
-                    await streamWriter
-                        .WriteLineAsync($"{context.Request.Scheme}{context.Request.Host}{context.Request.Path}<{context.Request.Body.Position}>[{context.Request.QueryString.Value}] executed at [{DateTime.UtcNow}]");
+                    streamWriter
+                        .WriteLine($"{context.Request.Scheme}{context.Request.Host}{context.Request.Path}[{context.Request.QueryString.Value}] executed at [{DateTime.UtcNow}]");
                 }
             }
-#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception ex)
-#pragma warning restore CS0168 // Variable is declared but never used
             {
-
+                using (var streamWriter = new StreamWriter("exceptions.log", true))
+                {
+                    streamWriter
+                        .WriteLine($"EXCEPTION thrown at {DateTime.UtcNow:G} while performing: {context.Request} request. \r\n {ex.Message}. \r\n Inner text: {ex.InnerException.Message}");
+                }
             }
             finally
             {

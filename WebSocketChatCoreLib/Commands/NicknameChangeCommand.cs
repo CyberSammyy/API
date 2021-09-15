@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using WebSocketChatCoreLib;
 using WebSocketChatServer;
 
 namespace WebSocketChatServerApp.Commands
@@ -7,16 +8,18 @@ namespace WebSocketChatServerApp.Commands
     public class NicknameChangeCommand : Command
     {
         private const int ArgsCount = 1;
+        private readonly IUserRepository _userRepository;
 
-        private NicknameChangeCommand(string[] args) : base(args)
+        private NicknameChangeCommand(string[] args, IUserRepository userRepository) : base(args)
         {
+            _userRepository = userRepository;
         }
 
-        public static NicknameChangeCommand Create(string[] args)
+        public static NicknameChangeCommand Create(string[] args, IUserRepository userRepository)
         {
             if(args.Length == ArgsCount)
             {
-                return new NicknameChangeCommand(args);
+                return new NicknameChangeCommand(args, userRepository);
             }
 
             throw new ArgumentException(
@@ -38,10 +41,10 @@ namespace WebSocketChatServerApp.Commands
             var oldName = sender.ToString();
             sender.Nickname = Args[0];
 
-            var result = await new UserService().ChangeUserData(new User
+            var result = await _userRepository.ChangeUserData(new User
             {
-                Email = sender.Email,
                 Nickname = Args[0],
+                Email = sender.Email,
                 Id = sender.Id,
                 Password = sender.Password,
                 PhoneNumber = sender.PhoneNumber,

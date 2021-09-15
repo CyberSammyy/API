@@ -14,6 +14,8 @@ namespace BusinessLogic.Interfaces
         public Task<bool> PutUser(User user);
         public Task<User> GetUserByLoginAndPassword(AuthenticationModel userAuthData);
         public Task<bool> RegisterUser(User userToRegister);
+        public Task<bool> ChangePassword(Guid userId, string newPassword);
+        public Task<bool> ChangeNickname(Guid userId, string newNickname);
         void AddUserMail(Guid userId, string mail, string path);
         Task<ConfirmationResult> ConfirmEmail(string message);
     }

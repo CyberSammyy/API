@@ -76,6 +76,24 @@ namespace DataAccess
             }
         }
 
+        public async Task<bool> ChangePassword(Guid userId, string newPassword)
+        {
+            using (var context = new UsersDBContext(_options))
+            {
+                try
+                {
+                    var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+                    foundUser.PasswordHash = 
+                }
+            }
+        }
+
+        public async Task<bool> ChangeNickname(Guid userId, string newNickname)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> PutUser(UserDTO user)
         {
             using (var context = new UsersDBContext(_options))
@@ -83,12 +101,15 @@ namespace DataAccess
                 try
                 {
                     var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
+                    //user.PasswordHash = foundUser.PasswordHash;
                     context.Update(user);
                     await context.SaveChangesAsync();
 
                     return true;
                 }
-                catch (Exception)
+#pragma warning disable CS0168 // Variable is declared but never used
+                catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     return false;
                 }

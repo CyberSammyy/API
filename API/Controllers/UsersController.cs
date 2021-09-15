@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
+using HelperClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -42,8 +43,19 @@ namespace API.Controllers
             }
 
             var token = _sessionService.CreateAuthToken(validationResult.UserWithRoles);
+            var id = validationResult.UserWithRoles.Id;
+            var email = string.Empty;
+            var phoneNumber = string.Empty;
+
+            if(!validationResult.AdditionalParams.TryGetValue("Email", out email) ||
+               !validationResult.AdditionalParams.TryGetValue("PhoneNumber", out phoneNumber))
+            {
+                BadRequest("Some data is missing!");
+            }
             
-            return token;
+            return token + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + id 
+                + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + email
+                + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + ph;
         }
 
         [AllowAnonymous]
@@ -90,6 +102,13 @@ namespace API.Controllers
         public async Task<bool> PutUser(User user)
         {
             return await _service.PutUser(user);
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<bool> PutUser(string newPassword)
+        {
+            return await _service.PutUser
         }
 
         [AllowAnonymous]

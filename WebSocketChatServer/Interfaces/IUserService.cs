@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -11,7 +12,8 @@ namespace WebSocketChatServer
         Task<Dictionary<string, string>> GetTokenDictionary(string userName, string password);
         //Task<string> GetUserInfo(string token);
         //Task<string> GetValues(string token);
-        Task<HttpResponseMessage> Login(AuthenticationModel authenticationModel);
+        Task<(HttpResponseMessage response, Guid idFromDataBase)> Login(AuthenticationModel authenticationModel);
         Task<HttpResponseMessage> Register(User userToRegister);
+        Task<HttpResponseMessage> ChangeUserData(User updatedUser);
     }
 }

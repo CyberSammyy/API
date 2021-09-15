@@ -16,6 +16,7 @@ namespace WebSocketChatServerApp
         public int PhoneNumber { get; set; }
         public bool IsConfirmed { get; set; } = false;
         public bool IsRegistered { get; set; } = false;
+        public bool IsLoggedIn { get; set; } = false;
         public string Password { get; set; }
         public string Token { get; set; }
 

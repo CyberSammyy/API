@@ -11,6 +11,7 @@ namespace WebSocketChatCoreLib
     public interface IUserRepository
     {
         public Task<HttpResponseMessage> RegisterUser(SocketUser userToRegister);
-        public Task<HttpResponseMessage> Login(AuthenticationModel loginData);
+        public Task<(HttpResponseMessage response, Guid idFromDataBase)> Login(AuthenticationModel loginData);
+        public Task<HttpResponseMessage> ChangeUserData(User updatedUser);
     }
 }

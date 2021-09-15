@@ -23,6 +23,7 @@ namespace WebSocketChatServerApp
             public const string NotConfirmedUserErrorMessage = "\r\n Additional condition for this command: you have to confirm your email address. \r\nPlease, check your mail and type /confirm.";
             public const string PasswordsDoesntMatchErrorMessage = "Passwords doesn't match!";
             public const string NotEnoughPermissionsErrorMessage = "Your permission isn't enough to perform this command!";
+            public const string UserIsAlreadyLoggedInErrorMessage = "You are logged in already as {0}. You can log out by typing /logout";
         }
 
         public static class ExceptionMessages
