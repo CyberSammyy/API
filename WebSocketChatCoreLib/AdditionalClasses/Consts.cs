@@ -21,6 +21,7 @@
             public const string NotEnoughPermissionsErrorMessage = "Your permission isn't enough to perform this command!";
             public const string UserIsAlreadyLoggedInErrorMessage = "You are logged in already as {0}. You can log out by typing /logout";
             public const string UserIsAlreadyRegisteredErrorMessage = "You are registered already as {0}. You can log out by typing /logout";
+            public const string NotLoggedInUserErrorMessage = "You are not logged in!\r\n You can log in by typing /login Nickname Password. \r\n If you don't have an account you can create it with command /register Nickname Email Password Password.";
         }
 
         public static class ExceptionMessages
@@ -38,6 +39,7 @@
             public const string LoginCommand = "login";
             public const string RemoveUserAdminCommand = "us-rm-adm";
             public const string GetUserIdCommand = "id";
+            public const string LogoutCommand = "logout";
         }
 
         public const string PrivateMessageFormat = "{0} => {1}";
@@ -48,5 +50,7 @@
         public const string LoginCompletenessMessage = "You have been logged in as {0}";
         public const string UserLoginMessage = "{0} logged in! Yikes!";
         public const string UserRegistrationMessage = "{0} successfully registered!";
+        public const string UserLoggedOutMessage = "User {0} logged out";
+        public const string UserLoggedOutMessageToYourself = "You have been logged out. Now your nickname is {0}";
     }
 }

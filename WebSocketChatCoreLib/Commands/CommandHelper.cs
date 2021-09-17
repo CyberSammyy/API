@@ -42,6 +42,8 @@ namespace WebSocketChatServerApp.Commands
                             => GetUserIdCommand.Create(commandArgs),
                         string str when str.StartsWith(Consts.Commands.RemoveUserAdminCommand)
                             => RemoveUserAdminCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.LogoutCommand)
+                            => LogoutCommand.Create(commandArgs),
                         _ => InvalidCommand.Create()
                     };
                 }

@@ -20,6 +20,33 @@ namespace WebSocketChatServerApp
             _connections = new List<SocketUser>();
         }
 
+        public bool ChangeSocketId(Guid oldId, Guid newId)
+        {
+            lock(_locker)
+            {
+                try
+                {
+                    var connection = _connections.Where(x => x.Id == oldId).FirstOrDefault();
+
+                    connection.Id = newId;
+
+                    return true;
+                }
+#pragma warning disable CS0168 // Variable is declared but never used
+                catch (NullReferenceException ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+                {
+                    return false;
+                }
+#pragma warning disable CS0168 // Variable is declared but never used
+                catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+                {
+                    return false;
+                }
+            }
+        }
+
         public bool AddSocket(WebSocket socket)
         {
             lock(_locker)
