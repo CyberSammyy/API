@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net.WebSockets;
+﻿using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 using WebSocketChatServerApp.Commands;
@@ -12,6 +8,7 @@ namespace WebSocketChatServerApp
     public class WebSocketMessageHandler : SocketHandler
     {
         private readonly CommandHelper _commandHelper;
+
         public WebSocketMessageHandler(CommandHelper commandHelper, ConnectionManager socketUsers) : base(socketUsers)
         {
             _commandHelper = commandHelper;

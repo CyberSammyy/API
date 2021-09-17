@@ -1,7 +1,5 @@
 ﻿using HelperClasses;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using WebSocketChatServer;
 using WebSocketChatServerApp;
@@ -12,6 +10,7 @@ namespace WebSocketChatCoreLib.Commands
     public class LoginCommand : Command
     {
         private const int ArgsCount = 2;
+
         private readonly IUserRepository _userRepository;
 
         private LoginCommand(string[] args, IUserRepository userRepository) : base(args)

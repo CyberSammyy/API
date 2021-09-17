@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocketChatClientAppConso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocketChatCoreLib", "WebSocketChatCoreLib\WebSocketChatCoreLib.csproj", "{1C7EF089-7168-475F-B187-FBCD6C12526E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClasses", "HelperClasses\HelperClasses.csproj", "{0B5A70E4-27F5-4DFD-9FD7-A1D2C8DF74CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelperClasses", "HelperClasses\HelperClasses.csproj", "{0B5A70E4-27F5-4DFD-9FD7-A1D2C8DF74CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MD5Generator", "MD5Generator\MD5Generator.csproj", "{160E5D0D-2B58-4732-9035-7D44804FFB47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MD5Generator", "MD5Generator\MD5Generator.csproj", "{160E5D0D-2B58-4732-9035-7D44804FFB47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedModels", "DistributedModels\DistributedModels.csproj", "{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{160E5D0D-2B58-4732-9035-7D44804FFB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{160E5D0D-2B58-4732-9035-7D44804FFB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{160E5D0D-2B58-4732-9035-7D44804FFB47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

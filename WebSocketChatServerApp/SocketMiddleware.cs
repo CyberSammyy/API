@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +10,7 @@ namespace WebSocketChatServerApp
     public class SocketMiddleware
     {
         private readonly SocketHandler _socketHandler;
+
         private readonly ILogger<SocketMiddleware> _logger;
 
         public SocketMiddleware(RequestDelegate _, SocketHandler handler, ILogger<SocketMiddleware> logger)
@@ -35,6 +34,7 @@ namespace WebSocketChatServerApp
         private async Task Receive(WebSocket socket)
         {
             var buffer = new byte[Consts.MessageSizeInBytes];
+
             while (socket.State == WebSocketState.Open)
             {
                 try

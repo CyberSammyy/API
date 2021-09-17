@@ -91,7 +91,9 @@ namespace DataAccess
 
                     return true;
                 }
-                catch(Exception ex)
+#pragma warning disable CS0168 // Variable is declared but never used
+                catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     return false;
                 }
@@ -112,7 +114,9 @@ namespace DataAccess
 
                     return true;
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     return false;
                 }
@@ -126,7 +130,6 @@ namespace DataAccess
                 try
                 {
                     var foundUser = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
-                    //user.PasswordHash = foundUser.PasswordHash;
                     context.Update(user);
                     await context.SaveChangesAsync();
 
@@ -175,6 +178,7 @@ namespace DataAccess
         {
             bool resultAddingUser = false;
             bool resultAddingRole = false;
+
             using (var context = new UsersDBContext(_options))
             {
                 try

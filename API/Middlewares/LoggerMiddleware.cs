@@ -21,6 +21,7 @@ namespace API.Middlewares
             try
             {
                 System.Threading.Monitor.Enter(locker, ref lockWasTaken);
+
                 using (var streamWriter = new StreamWriter("requests.log", true))
                 {
                     streamWriter
@@ -39,6 +40,7 @@ namespace API.Middlewares
             {
                 System.Threading.Monitor.Exit(locker);
             }
+
             await _next(context);
         }
     }

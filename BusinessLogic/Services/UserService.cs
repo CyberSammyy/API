@@ -27,7 +27,6 @@ namespace BusinessLogic
 
         private readonly IMailExchangerService _mailExchangerService;
 
-
         public UserService(IUserRepository userRepository, 
             IRolesRepository rolesRepository, 
             IMapper mapper, 
@@ -105,7 +104,9 @@ namespace BusinessLogic
             {
                 return await _userRepository.ChangePassword(userId, newPassword);
             }
-            catch(Exception ex)
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 return false;
             }
@@ -117,7 +118,9 @@ namespace BusinessLogic
             {
                 return await _userRepository.ChangeNickname(userId, newNickname);
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 return false;
             }
@@ -142,6 +145,7 @@ namespace BusinessLogic
             try
             {
                 var roles = await _rolesRepository.GetRolesById(id);
+
                 foreach(var role in roles)
                 {
                     if(!(await _rolesRepository.RemoveRole(id, role.RoleName)))
@@ -168,6 +172,7 @@ namespace BusinessLogic
         public async Task<bool> RegisterUser(User userToRegister)
         {
             userToRegister.Id = Guid.NewGuid();
+
             try
             {
                 return await _userRepository.RegisterUser(_mapper.Map<UserDTO>(userToRegister), Constants.defaultRoleName);
@@ -186,6 +191,7 @@ namespace BusinessLogic
                 ConfirmationMessage = StringGenerator.GenerateString(),
                 UserId = userId
             };
+
             var modelToSerialize = JsonSerializer.Serialize(confirmationModel);
             var messageToSend = EncryptionHelper.Encrypt(modelToSerialize);
 
@@ -196,6 +202,7 @@ namespace BusinessLogic
                 IsConfirmed = false,
                 UserId = userId
             });
+
             var confirmationString = $"{path}/users/confirm?message={messageToSend}";
 
             _mailExchangerService.SendMessage(
@@ -219,6 +226,7 @@ namespace BusinessLogic
                 var decrypted = EncryptionHelper.Decrypt(message);
                 var model = JsonSerializer.Deserialize<ConfirmationMessageModel>(decrypted, options);
                 var isSuccessful = _mailService.ConfirmMail(model);
+
                 return new ConfirmationResult
                 {
                     IsSuccessful = await isSuccessful,

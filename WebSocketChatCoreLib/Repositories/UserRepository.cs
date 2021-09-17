@@ -1,9 +1,7 @@
-﻿using AutoMapper;
+﻿using DistributedModels;
 using MD5Generator;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using WebSocketChatServer;
 using WebSocketChatServerApp;
@@ -23,7 +21,12 @@ namespace WebSocketChatCoreLib
         {
             try
             {
-                var result = await _userService.ChangeNickname(userId, newNickname);
+                var result = await _userService.ChangeNickname(new StringUserFieldChangeModel
+                {
+                    FieldToUpdate = newNickname,
+                    UserId = userId
+                });
+
                 return result;
             }
 #pragma warning disable CS0168 // Variable is declared but never used
@@ -42,6 +45,7 @@ namespace WebSocketChatCoreLib
             try
             {
                 var result = await _userService.ChangePassword(userId, newPassword.GetMD5Hash());
+
                 return result;
             }
 #pragma warning disable CS0168 // Variable is declared but never used

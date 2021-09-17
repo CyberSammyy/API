@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using BusinessLogic.Classes;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
 using DataAccess.Models;
 using MD5Generator;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -77,7 +75,7 @@ namespace BusinessLogic.Services
 
         public async Task<bool> RegisterUser(User userToRegister, string path)
         {
-            if(!IsPasswordValid(userToRegister.Password) || 
+            if(!IsPasswordValid(userToRegister.Password) || //TODO Unmock validation
                !IsMailFormatValid(userToRegister.Email))
             {
                 //return false;

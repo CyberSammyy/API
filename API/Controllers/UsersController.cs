@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
+using DistributedModels;
 using HelperClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +54,7 @@ namespace API.Controllers
                 BadRequest("Some data is missing!");
             }
             
-            return token + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + id 
+            return token + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + id //TODO Investigate more convinient solution how to pass email id and phone number
                 + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + email
                 + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + phoneNumber;
         }
@@ -106,16 +107,16 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPut("changePassword")]
-        public async Task<bool> ChangePassword(Guid userId, string newPassword)
+        public async Task<bool> ChangePassword(StringUserFieldChangeModel passwordToUpdate)
         {
-            return await _service.ChangePassword(userId, newPassword);
+            return await _service.ChangePassword(passwordToUpdate.UserId, passwordToUpdate.FieldToUpdate);
         }
 
         [Authorize]
         [HttpPut("changeNickname")]
-        public async Task<bool> ChangeNickname(Guid userId, string newNickname)
+        public async Task<bool> ChangeNickname(StringUserFieldChangeModel nicknameToUpdate)
         {
-            return await _service.ChangeNickname(userId, newNickname);
+            return await _service.ChangeNickname(nicknameToUpdate.UserId, nicknameToUpdate.FieldToUpdate);
         }
 
         [AllowAnonymous]
@@ -125,6 +126,7 @@ namespace API.Controllers
             try
             {
                 var result = await _authService.ConfirmEmail(message);
+
                 return Ok(result);
             }
 #pragma warning disable CS0168 // Variable is declared but never used

@@ -6,7 +6,6 @@ namespace WebSocketChatServerApp.Commands
     {
         private InvalidCommand(string[] args) : base(args)
         {
-
         }
 
         public static InvalidCommand Create()

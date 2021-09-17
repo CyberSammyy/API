@@ -1,13 +1,14 @@
-﻿using System;
+﻿using HelperClasses;
+using System;
 using System.Threading.Tasks;
 using WebSocketChatCoreLib;
-using WebSocketChatServer;
 
 namespace WebSocketChatServerApp.Commands
 {
     public class NicknameChangeCommand : Command
     {
         private const int ArgsCount = 1;
+
         private readonly IUserRepository _userRepository;
 
         private NicknameChangeCommand(string[] args, IUserRepository userRepository) : base(args)
@@ -47,18 +48,23 @@ namespace WebSocketChatServerApp.Commands
             {
                 await socketHandler.SendMessageToYourself(new Message
                 {
-                    MessageText = result.ReasonPhrase + "|" + result.StatusCode
+                    MessageText = result.ReasonPhrase + HelperConstants.UNIVERSAL_RESPONSE_STRING_SEPARATOR + result.StatusCode
                 }, sender.Id);
 
                 return;
             }
 
-            var message = string.Format(Consts.Messages.NicknameChangedMessage, oldName, sender.Nickname);
+            await socketHandler.SendMessageToYourself(
+                new Message
+                {
+                    MessageText = string.Format(Consts.Messages.NicknameChangedMessageToYourself, sender.Nickname),
+                    Settings = sender.UserMessageSettings
+                }, sender.Id);
 
             await socketHandler.SendPublicMessage(
                 new Message
                 {
-                    MessageText = message,
+                    MessageText = string.Format(Consts.Messages.NicknameChangedMessage, oldName, sender.Nickname),
                     Settings = sender.UserMessageSettings
                 }, sender.Id);
         }

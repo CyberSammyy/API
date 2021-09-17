@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System;
 using HelperClasses;
+using DistributedModels;
 
 namespace WebSocketChatServer
 {
@@ -58,13 +59,13 @@ namespace WebSocketChatServer
             }
         }
 
-        public async Task<HttpResponseMessage> ChangeNickname(Guid userId, string newNickname)
+        public async Task<HttpResponseMessage> ChangeNickname(StringUserFieldChangeModel changedNickname)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
 
-                var responce = await client.PostAsJsonAsync(Constants.APP_PATH + @"/changeNickname", userId + newNickname);
+                var responce = await client.PutAsJsonAsync(Constants.APP_PATH + @"/Users/changeNickname", changedNickname);
 
                 return responce;
             }
@@ -76,7 +77,7 @@ namespace WebSocketChatServer
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
 
-                var responce = await client.PostAsJsonAsync(Constants.APP_PATH + @"/changePassword", new
+                var responce = await client.PutAsJsonAsync(Constants.APP_PATH + @"/Users/changePassword", new
                 {
                     userId = userId,
                     newPasswordHash = newPasswordHash

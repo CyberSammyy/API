@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebSocketChatServerApp
+﻿namespace WebSocketChatServerApp
 {
     public static class Consts
     {
@@ -11,6 +6,7 @@ namespace WebSocketChatServerApp
         {
             public const string InvalidCommandMessage = "Invalid command!";
             public const string NicknameChangedMessage = "{0} nickname changed to {1}";
+            public const string NicknameChangedMessageToYourself = "You have successfully changed your nickname to {0}";
             public const string ConnectionClosedMessage = "Socket connection closed";
             public const string JoinMessage = "{0} just joined the party *****";
             public const string LeaveMessage = "{0} just left the party *****";
@@ -24,6 +20,7 @@ namespace WebSocketChatServerApp
             public const string PasswordsDoesntMatchErrorMessage = "Passwords doesn't match!";
             public const string NotEnoughPermissionsErrorMessage = "Your permission isn't enough to perform this command!";
             public const string UserIsAlreadyLoggedInErrorMessage = "You are logged in already as {0}. You can log out by typing /logout";
+            public const string UserIsAlreadyRegisteredErrorMessage = "You are registered already as {0}. You can log out by typing /logout";
         }
 
         public static class ExceptionMessages

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using WebSocketChatServer;
 using WebSocketChatServerApp;
 using WebSocketChatServerApp.Commands;
 
@@ -11,7 +8,9 @@ namespace WebSocketChatCoreLib.Commands
     class RegistrationCommand : Command
     {
         private const int ArgsCount = 4;
+
         private readonly IUserRepository _userRepository;
+
         private RegistrationCommand(string[] args, IUserRepository userRepository) : base(args)
         {
             _userRepository = userRepository;
@@ -21,6 +20,11 @@ namespace WebSocketChatCoreLib.Commands
         {
             if (args.Length == ArgsCount)
             {
+                if (args[2] != args[3])
+                {
+                    throw new Exception(Consts.Errors.PasswordsDoesntMatchErrorMessage);
+                }
+
                 return new RegistrationCommand(args, userRepository);
             }
 
@@ -30,9 +34,12 @@ namespace WebSocketChatCoreLib.Commands
 
         public override async Task ProcessMessage(SocketUser sender, SocketHandler socketHandler)
         {
-            if(Args[2] != Args[3])
+            if(sender.IsRegistered || sender.IsLoggedIn)
             {
-                throw new Exception(Consts.Errors.PasswordsDoesntMatchErrorMessage);
+                await socketHandler.SendMessageToYourself(new Message
+                {
+                    MessageText = string.Format(Consts.Errors.UserIsAlreadyRegisteredErrorMessage, sender.Nickname)
+                }, sender.Id);
             }
 
             sender.Nickname = Args[0];
