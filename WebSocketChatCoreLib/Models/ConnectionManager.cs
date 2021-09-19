@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RSACryptoServiceNetCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,6 +133,22 @@ namespace WebSocketChatServerApp
                          nameof(SocketUser), 
                          nameof(_connections), 
                          nameof(WebSocket)));
+                }
+            }
+        }
+
+        public SocketUser this[Guid id]
+        {
+            get
+            {
+                lock(_locker)
+                {
+                    return _connections.Where(x => x.Id == id).FirstOrDefault() ??
+                        throw new NullReferenceException(string.Format(
+                         Consts.ExceptionMessages.NullReferenceExceptionMessage,
+                         nameof(SocketUser),
+                         nameof(_connections),
+                         nameof(Guid)));
                 }
             }
         }

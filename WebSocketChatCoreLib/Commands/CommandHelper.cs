@@ -1,6 +1,7 @@
 ﻿using System;
 using WebSocketChatCoreLib;
 using WebSocketChatCoreLib.Commands;
+using WebSocketChatCoreLib.Commands.EncryptedChatCommands;
 
 namespace WebSocketChatServerApp.Commands
 {
@@ -44,6 +45,14 @@ namespace WebSocketChatServerApp.Commands
                             => RemoveUserAdminCommand.Create(commandArgs),
                         string str when str.StartsWith(Consts.Commands.LogoutCommand)
                             => LogoutCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.EncryptedChatRequestCommand)
+                            => EncryptedChatRequestCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.EncryptedChatCancelCommand)
+                            => EncryptedChatCancelCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.EncryptedChatDenyCommand)
+                            => EncryptedChatDenyCommand.Create(commandArgs),
+                        string str when str.StartsWith(Consts.Commands.EncryptedChatAcceptCommand)
+                            => EncryptedChatAcceptCommand.Create(commandArgs),
                         _ => InvalidCommand.Create()
                     };
                 }

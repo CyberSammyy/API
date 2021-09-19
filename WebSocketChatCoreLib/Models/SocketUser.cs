@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.WebSockets;
+using WebSocketChatCoreLib.Models;
 
 namespace WebSocketChatServerApp
 {
@@ -14,6 +15,7 @@ namespace WebSocketChatServerApp
         public bool IsConfirmed { get; set; } = false;
         public bool IsRegistered { get; set; } = false;
         public bool IsLoggedIn { get; set; } = false;
+        public EncryptedChatSessionSettings EncryptedSessionSettings { get; set; } = new EncryptedChatSessionSettings();
         public string Password { get; set; }
         public string Token { get; set; }
 

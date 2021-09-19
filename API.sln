@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelperClasses", "HelperClas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MD5Generator", "MD5Generator\MD5Generator.csproj", "{160E5D0D-2B58-4732-9035-7D44804FFB47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedModels", "DistributedModels\DistributedModels.csproj", "{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistributedModels", "DistributedModels\DistributedModels.csproj", "{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSACryptoServiceNetCore", "C:\Users\kaila\source\repos\RSACryptoServiceNetCore\RSACryptoServiceNetCore\RSACryptoServiceNetCore.csproj", "{8E3018EB-77C1-40EC-AF59-740BF913E7D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDA7B797-9C9C-44A0-9453-A6A7CB8E00B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E3018EB-77C1-40EC-AF59-740BF913E7D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3018EB-77C1-40EC-AF59-740BF913E7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3018EB-77C1-40EC-AF59-740BF913E7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3018EB-77C1-40EC-AF59-740BF913E7D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

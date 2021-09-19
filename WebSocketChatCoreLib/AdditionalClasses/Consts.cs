@@ -22,11 +22,17 @@
             public const string UserIsAlreadyLoggedInErrorMessage = "You are logged in already as {0}. You can log out by typing /logout";
             public const string UserIsAlreadyRegisteredErrorMessage = "You are registered already as {0}. You can log out by typing /logout";
             public const string NotLoggedInUserErrorMessage = "You are not logged in!\r\n You can log in by typing /login Nickname Password. \r\n If you don't have an account you can create it with command /register Nickname Email Password Password.";
+            public const string TargetUserIsNotRegisteredErrorMessage = "You can't send private messages to this user due to targets' unregistered status";
+            public const string UserDoesntExistErrorMessage = "This user doesn't exist!";
+            public const string CanNotStartEncryptedSessionWithUnauthorizedUserErrorMessage = "This user is unauthorized or unregistered!";
+            public const string UserDoesntHaveActiveIncomingRequestsErrorMessage = "You dont have any incoming requests";
+            public const string UserDoesntHaveActiveOutcomingRequestsErrorMessage = "You dont have any outcoming requests";
         }
 
         public static class ExceptionMessages
         {
             public const string NullReferenceExceptionMessage = "Entity <{0}> wasn't found in {1}. Searching by {2}";
+            public const string ArgumentNullExceptionMessage = "Entity <{0}> was null";
         }
 
         public static class Commands
@@ -40,6 +46,10 @@
             public const string RemoveUserAdminCommand = "us-rm-adm";
             public const string GetUserIdCommand = "id";
             public const string LogoutCommand = "logout";
+            public const string EncryptedChatRequestCommand = "secure";
+            public const string EncryptedChatAcceptCommand = "saccept";
+            public const string EncryptedChatDenyCommand = "sdeny";
+            public const string EncryptedChatCancelCommand = "scancel";
         }
 
         public const string PrivateMessageFormat = "{0} => {1}";
@@ -52,5 +62,11 @@
         public const string UserRegistrationMessage = "{0} successfully registered!";
         public const string UserLoggedOutMessage = "User {0} logged out";
         public const string UserLoggedOutMessageToYourself = "You have been logged out. Now your nickname is {0}";
+        public const string SuccessMessage = "Success!";
+        public const string FailMessage = "Fail!";
+        public const string EncryptedSessionRequestedMessage = "User {0} want to start encrypted session. Type /accept Nickname or /deny Nickname";
+        public const string EncryptionChatRequestDenied = "Encryption chat session request has been denied successfully by user {0}";
+        public const string EncryptionChatRequestAccepted = "Encryption chat session request has been accepted successfully by user {0}";
+        public const string EncryptionChatRequestCanceled = "Encryption chat session request has been canceled successfully by user {0}";
     }
 }

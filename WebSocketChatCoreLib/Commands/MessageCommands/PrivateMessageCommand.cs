@@ -37,6 +37,17 @@ namespace WebSocketChatServerApp.Commands
             var clientId = Args[0];
             var targetClient = socketHandler.ConnectionManager[clientId];
 
+            if(!targetClient.IsRegistered)
+            {
+                await socketHandler.SendMessageToYourself(new Message
+                {
+                    MessageText = Consts.Errors.TargetUserIsNotRegisteredErrorMessage,
+                    Settings = new MessageSettings(MessageSettings.MessageSettingsPreset.CustomSettings, ConsoleColor.Red)
+                }, sender.Id);
+
+                return;
+            }
+
             if (targetClient != null)
             {
                 var message = string.Format(
@@ -55,7 +66,18 @@ namespace WebSocketChatServerApp.Commands
                     )
                 });
             }
-
+            else
+            {
+                await socketHandler.SendMessageToYourself(new Message
+                {
+                    MessageText = Consts.Errors.UserDoesntExistErrorMessage,
+                    Settings = new MessageSettings
+                    {
+                        Preset = MessageSettings.MessageSettingsPreset.CustomSettings,
+                        MessageColor = ConsoleColor.Red
+                    }
+                }, sender.Id);
+            }
         }
     }
 }

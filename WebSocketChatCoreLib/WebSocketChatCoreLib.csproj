@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MD5Generator\MD5Generator.csproj" />
     <ProjectReference Include="..\WebSocketChatServer\WebSocketChatServer.csproj" />
+    <ProjectReference Include="C:\Users\kaila\source\repos\RSACryptoServiceNetCore\RSACryptoServiceNetCore\RSACryptoServiceNetCore.csproj" />
   </ItemGroup>
 
 </Project>
