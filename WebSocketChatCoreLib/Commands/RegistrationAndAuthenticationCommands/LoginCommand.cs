@@ -29,7 +29,7 @@ namespace WebSocketChatCoreLib.Commands
                 string.Format(Consts.Messages.InvalidCommandArgumentsMessage, nameof(LoginCommand), ArgsCount));
         }
 
-        public override async Task ProcessMessage(SocketUser sender, SocketHandler socketHandler)
+        public override async Task ProcessMessage(SocketUser sender, SocketHandler socketHandler) //TODO Fix login (update user in connectionManager)
         {
             if(sender.IsLoggedIn)
             {
@@ -37,7 +37,11 @@ namespace WebSocketChatCoreLib.Commands
                 {
                     MessageText = string.Format(Consts.Errors.UserIsAlreadyLoggedInErrorMessage, sender.Nickname)
                 }, sender.Id);
+
+                return;
             }
+
+            var oldNick = sender.Nickname;
 
             var result = await _userRepository.Login(new AuthenticationModel
             {

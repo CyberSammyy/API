@@ -11,5 +11,7 @@ namespace WebSocketChatCoreLib.Models
         public bool IsEncryptedChatRequestSent { get; set; } = false;
         public bool IsEncryptedChatRequestTaken { get; set; } = false;
         public bool IsEncryptedSessionStarted { get; set; } = false;
+        public int IncomingRequestsCounter { get; set; } = 0;
+        public int OutcomingRequestsCounter { get; set; } = 0;
     }
 }

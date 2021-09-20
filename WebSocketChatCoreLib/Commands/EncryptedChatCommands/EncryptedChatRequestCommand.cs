@@ -43,12 +43,32 @@ namespace WebSocketChatCoreLib.Commands
                 return;
             }
 
+            if(foundUser.EncryptedSessionSettings.IsEncryptedSessionStarted || 
+                sender.EncryptedSessionSettings.IsEncryptedSessionStarted)
+            {
+                await socketHandler.SendMessageToYourself(new Message
+                {
+                    MessageText = Consts.Errors.CanNotStartEncryptedSessionErrorMessage,
+                    Settings = new MessageSettings
+                    {
+                        Preset = MessageSettings.MessageSettingsPreset.CustomSettings,
+                        MessageColor = ConsoleColor.Red
+                    }
+                }, sender.Id);
+
+                return;
+            }
+
+            sender.EncryptedSessionSettings.OutcomingRequestsCounter++;
+            foundUser.EncryptedSessionSettings.IncomingRequestsCounter++;
+
             sender.EncryptedSessionSettings.OutcomingRequestingId = foundUser.Id;
             sender.EncryptedSessionSettings.IsEncryptedChatRequestSent = true;
 
             await socketHandler.SendMessageToYourself(new Message
             {
-                MessageText = Consts.SuccessMessage,
+                MessageText = Consts.SuccessMessage + 
+                    string.Format(Consts.OutcomingRequestsCountMessage, sender.EncryptedSessionSettings.OutcomingRequestsCounter),
                 Settings = new MessageSettings
                 {
                     Preset = MessageSettings.MessageSettingsPreset.CustomSettings,
@@ -58,7 +78,8 @@ namespace WebSocketChatCoreLib.Commands
 
             await socketHandler.SendPublicMessage(new Message
             {
-                MessageText = string.Format(Consts.EncryptedSessionRequestedMessage, sender.Nickname),
+                MessageText = string.Format(Consts.EncryptedSessionRequestedMessage, sender.Nickname, 
+                    sender.EncryptedSessionSettings.IncomingRequestsCounter),
                 SenderNickname = sender.Nickname,
                 Settings = new MessageSettings
                 {

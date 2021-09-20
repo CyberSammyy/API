@@ -48,6 +48,9 @@ namespace WebSocketChatCoreLib.Commands.EncryptedChatCommands
                 throw new ArgumentNullException(string.Format(Consts.ExceptionMessages.ArgumentNullExceptionMessage, nameof(foundUser)));
             }
 
+            sender.EncryptedSessionSettings.OutcomingRequestsCounter--;
+            foundUser.EncryptedSessionSettings.IncomingRequestsCounter--;
+
             foundUser.EncryptedSessionSettings.IsEncryptedChatRequestTaken = false;
             foundUser.EncryptedSessionSettings.IncomingRequestingId = Guid.Empty;
 
@@ -56,12 +59,12 @@ namespace WebSocketChatCoreLib.Commands.EncryptedChatCommands
 
             await socketHandler.SendMessageToYourself(new Message
             {
-                MessageText = string.Format(Consts.EncryptionChatRequestCanceled, sender.Nickname)
+                MessageText = string.Format(Consts.EncryptionChatRequestCanceledMessage, sender.Nickname)
             }, sender.Id);
 
             await socketHandler.SendPublicMessage(new Message
             {
-                MessageText = string.Format(Consts.EncryptionChatRequestCanceled, sender.Nickname),
+                MessageText = string.Format(Consts.EncryptionChatRequestCanceledMessage, sender.Nickname),
                 Settings = new MessageSettings
                 {
                     Preset = MessageSettings.MessageSettingsPreset.CustomSettings,

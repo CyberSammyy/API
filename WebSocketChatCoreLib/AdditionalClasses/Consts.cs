@@ -27,6 +27,7 @@
             public const string CanNotStartEncryptedSessionWithUnauthorizedUserErrorMessage = "This user is unauthorized or unregistered!";
             public const string UserDoesntHaveActiveIncomingRequestsErrorMessage = "You dont have any incoming requests";
             public const string UserDoesntHaveActiveOutcomingRequestsErrorMessage = "You dont have any outcoming requests";
+            public const string CanNotStartEncryptedSessionErrorMessage = "This user is already in session!";
         }
 
         public static class ExceptionMessages
@@ -64,9 +65,12 @@
         public const string UserLoggedOutMessageToYourself = "You have been logged out. Now your nickname is {0}";
         public const string SuccessMessage = "Success!";
         public const string FailMessage = "Fail!";
-        public const string EncryptedSessionRequestedMessage = "User {0} want to start encrypted session. Type /accept Nickname or /deny Nickname";
-        public const string EncryptionChatRequestDenied = "Encryption chat session request has been denied successfully by user {0}";
-        public const string EncryptionChatRequestAccepted = "Encryption chat session request has been accepted successfully by user {0}";
-        public const string EncryptionChatRequestCanceled = "Encryption chat session request has been canceled successfully by user {0}";
+        public const string EncryptedSessionRequestedMessage = "User {0} want to start encrypted session. Type /accept Nickname or /deny Nickname. Now you have {1} requests";
+        public const string EncryptionChatRequestDeniedMessage = "Encryption chat session request has been denied successfully by user {0}";
+        public const string EncryptionChatRequestAcceptedMessage = "Encryption chat session request has been accepted successfully by user {0}";
+        public const string EncryptionChatRequestCanceledMessage = "Encryption chat session request has been canceled successfully by user {0}";
+        public const string OutcomingRequestsCountMessage = "Outcoming requests: {0}";
+        public const string IncomingRequestsCountMessage = "Incoming requests: {0}";
+        public const string CanLoginMessage = "Now you can login by typing /login \r\n Your nickname changed but you don't have your permissions now";
     }
 }

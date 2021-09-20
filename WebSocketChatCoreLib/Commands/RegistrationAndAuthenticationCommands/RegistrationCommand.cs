@@ -32,7 +32,7 @@ namespace WebSocketChatCoreLib.Commands
                 string.Format(Consts.Messages.InvalidCommandArgumentsMessage, nameof(RegistrationCommand), ArgsCount));
         }
 
-        public override async Task ProcessMessage(SocketUser sender, SocketHandler socketHandler)
+        public override async Task ProcessMessage(SocketUser sender, SocketHandler socketHandler) //TODO Fix registration (update user in connectionManager)
         {
             if(sender.IsRegistered || sender.IsLoggedIn)
             {
@@ -40,7 +40,11 @@ namespace WebSocketChatCoreLib.Commands
                 {
                     MessageText = string.Format(Consts.Errors.UserIsAlreadyRegisteredErrorMessage, sender.Nickname)
                 }, sender.Id);
-            }
+
+                return;
+            };
+
+            var oldNick = Args[0];
 
             sender.Nickname = Args[0];
             sender.Email = Args[1];
@@ -51,12 +55,17 @@ namespace WebSocketChatCoreLib.Commands
             if(result.IsSuccessStatusCode)
             {
                 sender.IsRegistered = true;
+                sender.IsLoggedIn = true;
+
+                var oldUserToDelete = socketHandler.ConnectionManager[oldNick, true];
+
+                await socketHandler.ConnectionManager.RemoveSocket(oldUserToDelete);
 
                 await socketHandler.SendMessageToYourself(
                     new Message
                     {
                         SenderNickname = sender.Nickname,
-                        MessageText = string.Format(Consts.RegistrationCompletenessMessage, sender.Nickname) + "\r\n" + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
+                        MessageText = string.Format(Consts.RegistrationCompletenessMessage, sender.Nickname) + Consts.CanLoginMessage,// + "\r\n" + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
                         Settings = new MessageSettings()
                     }, sender.Id);
 
