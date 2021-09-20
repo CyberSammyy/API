@@ -26,7 +26,17 @@ namespace WebSocketChatCoreLib.Commands
 
         public override async Task ProcessMessage(SocketUser sender, SocketHandler socketHandler)
         {
-            var foundUser = socketHandler.ConnectionManager[Args[0]];
+            SocketUser foundUser;
+            try
+            {
+                foundUser = socketHandler.ConnectionManager[Args[0]];
+            }
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+            {
+                return;
+            }
 
             if(!foundUser.IsRegistered || !foundUser.IsLoggedIn /*|| !foundUser.IsConfirmed*/) //TODO REMOVE THIS COMMENT AND CONFIRM ALL EXISTING USERS
             {

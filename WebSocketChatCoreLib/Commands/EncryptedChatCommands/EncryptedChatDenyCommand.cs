@@ -41,7 +41,17 @@ namespace WebSocketChatCoreLib.Commands.EncryptedChatCommands
                 return;
             }
 
-            var requester = socketHandler.ConnectionManager[sender.EncryptedSessionSettings.IncomingRequestingId];
+            SocketUser requester;
+            try
+            {
+                requester = socketHandler.ConnectionManager[sender.EncryptedSessionSettings.IncomingRequestingId];
+            }
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
+            {
+                return;
+            }
 
             if(requester == null)
             {
