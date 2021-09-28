@@ -1,5 +1,4 @@
-﻿using HelperClasses;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using WebSocketChatServerApp;
 using WebSocketChatServerApp.Commands;
@@ -55,23 +54,18 @@ namespace WebSocketChatCoreLib.Commands
 
             if(result.IsSuccessStatusCode)
             {
-                var dataFromParsedString = await result.Content.ReadAsStringAsync();
-
-                var parsedToken = TokenAndIdParser.ParseTokenIdString(dataFromParsedString);
-
                 sender.IsRegistered = true;
-                sender.Nickname = Args[0];
-                sender.Token = TokenAndIdParser.RemoveIdFromTokenIdString(dataFromParsedString);
                 sender.IsLoggedIn = true;
-                sender.Email = parsedToken.email;
-                sender.PhoneNumber = Convert.ToInt32(parsedToken.phoneNumber);
-                sender.Id = parsedToken.id;
+
+                var oldUserToDelete = socketHandler.ConnectionManager[oldNick, true];
+
+                await socketHandler.ConnectionManager.RemoveSocket(oldUserToDelete);
 
                 await socketHandler.SendMessageToYourself(
                     new Message
                     {
                         SenderNickname = sender.Nickname,
-                        MessageText = string.Format(Consts.RegistrationCompletenessMessage, sender.Nickname),// + "\r\n" + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
+                        MessageText = string.Format(Consts.RegistrationCompletenessMessage, sender.Nickname) + Consts.CanLoginMessage,// + "\r\n" + "TOKEN [" + await result.Content.ReadAsStringAsync() + "] END OF TOKEN",
                         Settings = new MessageSettings()
                     }, sender.Id);
 

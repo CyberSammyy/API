@@ -41,18 +41,7 @@ namespace WebSocketChatCoreLib.Commands.EncryptedChatCommands
                 return;
             }
 
-            SocketUser foundUser;
-
-            try
-            {
-                foundUser = socketHandler.ConnectionManager[sender.EncryptedSessionSettings.OutcomingRequestingId];
-            }
-#pragma warning disable CS0168 // Variable is declared but never used
-            catch (Exception ex)
-#pragma warning restore CS0168 // Variable is declared but never used
-            {
-                return;
-            }
+            var foundUser = socketHandler.ConnectionManager[sender.EncryptedSessionSettings.OutcomingRequestingId];
 
             if (foundUser == null)
             {
