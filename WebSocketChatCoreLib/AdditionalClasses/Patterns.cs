@@ -1,4 +1,4 @@
-﻿namespace WebSocketChatServerApp
+﻿namespace WebSocketChatCoreLib.AdditionalClasses
 {
     public static class Patterns
     {

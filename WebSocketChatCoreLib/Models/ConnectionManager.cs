@@ -1,13 +1,13 @@
-﻿using RSACryptoServiceNetCore;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
+using WebSocketChatCoreLib.AdditionalClasses;
 
-namespace WebSocketChatServerApp
+namespace WebSocketChatCoreLib.Models
 {
     public class ConnectionManager : IEnumerable<SocketUser>
     {

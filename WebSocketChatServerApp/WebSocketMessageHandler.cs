@@ -1,7 +1,9 @@
 ﻿using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
-using WebSocketChatServerApp.Commands;
+using WebSocketChatCoreLib.AdditionalClasses;
+using WebSocketChatCoreLib.Commands;
+using WebSocketChatCoreLib.Models;
 
 namespace WebSocketChatServerApp
 {
@@ -50,6 +52,8 @@ namespace WebSocketChatServerApp
 
         private async Task ProcessMessage(SocketUser senderSocket, string messageFromClient)
         {
+            //string decodedMessage = 
+
             var command = _commandHelper.GetCommand(messageFromClient);
 
             await command?.ProcessMessage(senderSocket, this);

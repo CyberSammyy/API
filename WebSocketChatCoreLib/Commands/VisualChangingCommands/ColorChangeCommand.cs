@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WebSocketChatServerApp.Commands;
+using WebSocketChatCoreLib.AdditionalClasses;
+using WebSocketChatCoreLib.Models;
 
-namespace WebSocketChatServerApp
+namespace WebSocketChatCoreLib.Commands.VisualChangingCommands
 {
     public class ColorChangeCommand : Command
     {

@@ -1,9 +1,11 @@
 ﻿using HelperClasses;
 using System;
 using System.Threading.Tasks;
-using WebSocketChatCoreLib;
+using WebSocketChatCoreLib.AdditionalClasses;
+using WebSocketChatCoreLib.Interfaces;
+using WebSocketChatCoreLib.Models;
 
-namespace WebSocketChatServerApp.Commands
+namespace WebSocketChatCoreLib.Commands.VisualChangingCommands
 {
     public class NicknameChangeCommand : Command
     {

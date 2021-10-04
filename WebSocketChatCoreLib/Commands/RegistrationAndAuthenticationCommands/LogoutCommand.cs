@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using WebSocketChatCoreLib.AdditionalClasses;
-using WebSocketChatServerApp;
-using WebSocketChatServerApp.Commands;
+using WebSocketChatCoreLib.Models;
 
-namespace WebSocketChatCoreLib.Commands
+namespace WebSocketChatCoreLib.Commands.WebSocketChatCoreLib.Commands.RegistrationAndAuthenticationCommands
 {
     public class LogoutCommand : Command
     {

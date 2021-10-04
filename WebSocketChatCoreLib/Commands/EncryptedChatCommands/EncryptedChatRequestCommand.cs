@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WebSocketChatServerApp;
-using WebSocketChatServerApp.Commands;
+using WebSocketChatCoreLib.AdditionalClasses;
+using WebSocketChatCoreLib.Models;
 
-namespace WebSocketChatCoreLib.Commands
+namespace WebSocketChatCoreLib.Commands.EncryptedChatCommands
 {
     public class EncryptedChatRequestCommand : Command
     {

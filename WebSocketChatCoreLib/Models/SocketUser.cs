@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.WebSockets;
-using WebSocketChatCoreLib.Models;
+using WebSocketChatCoreLib.AdditionalClasses;
 
-namespace WebSocketChatServerApp
+namespace WebSocketChatCoreLib.Models
 {
     public class SocketUser
     {

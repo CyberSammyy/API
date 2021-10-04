@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WebSocketChatCoreLib.Models;
 using WebSocketChatServer;
-using WebSocketChatServerApp;
 
 namespace WebSocketChatCoreLib
 {

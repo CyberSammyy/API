@@ -1,4 +1,6 @@
-﻿namespace WebSocketChatServerApp
+﻿using WebSocketChatCoreLib.AdditionalClasses;
+
+namespace WebSocketChatCoreLib.Models
 {
     public class Message
     {

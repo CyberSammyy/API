@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using WebSocketChatCoreLib.Models;
 using WebSocketChatServer;
-using WebSocketChatServerApp;
 
-namespace WebSocketChatCoreLib
+namespace WebSocketChatCoreLib.Interfaces
 {
     public interface IUserRepository
     {

@@ -2,10 +2,11 @@
 using System;
 using System.Threading.Tasks;
 using WebSocketChatServer;
-using WebSocketChatServerApp;
-using WebSocketChatServerApp.Commands;
+using WebSocketChatCoreLib.AdditionalClasses;
+using WebSocketChatCoreLib.Models;
+using WebSocketChatCoreLib.Interfaces;
 
-namespace WebSocketChatCoreLib.Commands
+namespace WebSocketChatCoreLib.Commands.WebSocketChatCoreLib.Commands.RegistrationAndAuthenticationCommands
 {
     public class LoginCommand : Command
     {

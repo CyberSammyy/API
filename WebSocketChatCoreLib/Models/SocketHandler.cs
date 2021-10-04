@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WebSocketChatServerApp
+namespace WebSocketChatCoreLib.Models
 {
     public abstract class SocketHandler
     {

@@ -4,7 +4,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WebSocketChatServer;
-using WebSocketChatServerApp;
+using WebSocketChatCoreLib.Models;
+using WebSocketChatCoreLib.Interfaces;
 
 namespace WebSocketChatCoreLib
 {

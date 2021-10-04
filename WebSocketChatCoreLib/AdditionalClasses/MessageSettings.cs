@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebSocketChatServerApp
+namespace WebSocketChatCoreLib.AdditionalClasses
 {
     public class MessageSettings
     {

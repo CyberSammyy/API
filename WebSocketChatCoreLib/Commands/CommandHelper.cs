@@ -1,9 +1,14 @@
 ﻿using System;
-using WebSocketChatCoreLib;
-using WebSocketChatCoreLib.Commands;
+using WebSocketChatCoreLib.AdditionalClasses;
 using WebSocketChatCoreLib.Commands.EncryptedChatCommands;
+using WebSocketChatCoreLib.Commands.MessageCommands;
+using WebSocketChatCoreLib.Commands.RegistrationAndAuthenticationCommands;
+using WebSocketChatCoreLib.Commands.UtilityCommands;
+using WebSocketChatCoreLib.Commands.VisualChangingCommands;
+using WebSocketChatCoreLib.Commands.WebSocketChatCoreLib.Commands.RegistrationAndAuthenticationCommands;
+using WebSocketChatCoreLib.Interfaces;
 
-namespace WebSocketChatServerApp.Commands
+namespace WebSocketChatCoreLib.Commands
 {
     public class CommandHelper
     {

@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using WebSocketChatCoreLib.AdditionalClasses;
+using WebSocketChatCoreLib.Models;
 
-namespace WebSocketChatServerApp.Commands
+namespace WebSocketChatCoreLib.Commands.MessageCommands
 {
     public class InvalidCommand : Command
     {

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WebSocketChatServerApp;
-using WebSocketChatServerApp.Commands;
+using WebSocketChatCoreLib.AdditionalClasses;
+using WebSocketChatCoreLib.Commands.VisualChangingCommands;
+using WebSocketChatCoreLib.Models;
 
-namespace WebSocketChatCoreLib.Commands
+namespace WebSocketChatCoreLib.Commands.BloggingCommands
 {
     public class PostCommand : Command
     {

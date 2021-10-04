@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using WebSocketChatCoreLib.Models;
 
-namespace WebSocketChatServerApp.Commands
+namespace WebSocketChatCoreLib.Commands
 {
     public abstract class Command
     {
